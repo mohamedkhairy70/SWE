@@ -3,10 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWE.Data", "SWE.Data\SWE.Data.csproj", "{D84C7DC7-2E6E-4DEC-8010-CCEBB2A19366}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWE.Demain", "SWE.Demain\SWE.Demain.csproj", "{F769BD84-FBFC-434B-A885-DAE2161F132E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWE.UI", "SWE.UI\SWE.UI.csproj", "{CB396FF9-76D1-4622-8985-0E638F3C0082}"
 EndProject
 Global
@@ -15,14 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D84C7DC7-2E6E-4DEC-8010-CCEBB2A19366}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D84C7DC7-2E6E-4DEC-8010-CCEBB2A19366}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D84C7DC7-2E6E-4DEC-8010-CCEBB2A19366}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D84C7DC7-2E6E-4DEC-8010-CCEBB2A19366}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F769BD84-FBFC-434B-A885-DAE2161F132E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F769BD84-FBFC-434B-A885-DAE2161F132E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F769BD84-FBFC-434B-A885-DAE2161F132E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F769BD84-FBFC-434B-A885-DAE2161F132E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CB396FF9-76D1-4622-8985-0E638F3C0082}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CB396FF9-76D1-4622-8985-0E638F3C0082}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB396FF9-76D1-4622-8985-0E638F3C0082}.Release|Any CPU.ActiveCfg = Release|Any CPU

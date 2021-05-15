@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SWE.Data
+namespace SWE.Models
 {
     public class SWEContext : DbContext
     {

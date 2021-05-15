@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SWE.Models
+namespace SWE.UI.Models
 {
     public class Facultie
     {

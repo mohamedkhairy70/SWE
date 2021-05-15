@@ -11,7 +11,7 @@ namespace SWE.UI.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public Facultie Facultie { get; set; }
-        public List<Professor> Professor { get; set; } = new ();
-        public List<Course> Course { get; set; } = new();
+        public List<Professor> Professores { get; set; } = new ();
+        public List<Course> Courses { get; set; } = new();
     }
 }

@@ -22,8 +22,26 @@ namespace SWE.UI.Models
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Course>()
+                .HasMany(s => s.Students)
+                .WithMany(b => b.Courses)
+                .UsingEntity<CourseStudent>
+                (bs => bs.HasOne<Student>().WithMany(),
+                 bs => bs.HasOne<Course>().WithMany())
+                .Property(bs => bs.JoinDate)
+                .HasDefaultValueSql("GETDATE()")
+                ;
+            modelBuilder.Entity<Course>()
+                .HasMany(s => s.Professores)
+                .WithMany(b => b.Courses)
+                .UsingEntity<CourseProfessor>
+                (bs => bs.HasOne<Professor>().WithMany(),
+                 bs => bs.HasOne<Course>().WithMany())
+                .Property(bs => bs.JoinDate)
+                .HasDefaultValueSql("GETDATE()")
+                ;
+
             modelBuilder.Entity<StudentLog>().HasKey(s => s.UserName);
-            base.OnModelCreating(modelBuilder);
         }
     }
 }

@@ -15,6 +15,6 @@ namespace SWE.UI.Models
         public string Address { get; set; }
         public string Phone { get; set; }
         public DateTime BDate { get; set; }
-        public List<Course> Course { get; set; }
+        public List<Course> Courses { get; set; }
     }
 }

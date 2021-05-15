@@ -12,5 +12,6 @@ namespace SWE.Models
         public string Name { get; set; }
         public Department Department { get; set; }
         public List<Professor> Professor { get; set; }
+        public List<Student> Student { get; set; }
     }
 }

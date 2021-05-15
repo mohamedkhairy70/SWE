@@ -13,5 +13,10 @@ namespace SWE.Models
         {
             optionsBuilder.UseSqlServer(@"Data Source = .\khairy;Initial catalog=SWEDB;Integrated Security=true");
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Student>().HasKey(x => x.UserName);
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

@@ -6,11 +6,17 @@ using System.Threading.Tasks;
 
 namespace SWE.UI.Models.Domain
 {
-    public class Department : BaseClass
+    public class Department
     {
+        public Department()
+        {
+            Professores = new List<Professor>();
+            Courses = new List<Course>();
+        }
+        public int Id { get; set; }
         public string Name { get; set; }
         public Facultie Facultie { get; set; }
-        public HashSet<List<Professor>> Professores { get; set; } = new ();
-        public HashSet<List<Course>> Courses { get; set; } = new();
+        public List<Professor> Professores { get; set; }
+        public List<Course> Courses { get; set; }
     }
 }

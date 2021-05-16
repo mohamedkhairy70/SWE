@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace SWE.UI.Models
 {
-    public class UnitOfWork<T> : IUnitOfWork<T> where T : class, IEntity
+    public class UnitOfWork<T> : IUnitOfWork<T> where T : class
     {
         private readonly SWEContext context;
         public UnitOfWork(SWEContext context)

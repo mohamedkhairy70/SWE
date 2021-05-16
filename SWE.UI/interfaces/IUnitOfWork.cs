@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace SWE.UI.interfaces
 {
-    interface IUnitOfWork<T> : IDisposable where T : class,IEntity
+    interface IUnitOfWork<T> : IDisposable where T : class
     {
         void Commet();
 

@@ -24,8 +24,9 @@ namespace SWE.UI.Migrations
                 name: "Faculties",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -36,7 +37,8 @@ namespace SWE.UI.Migrations
                 name: "Studentes",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Leval = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -52,9 +54,10 @@ namespace SWE.UI.Migrations
                 name: "Departments",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FacultieId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    FacultieId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -73,7 +76,7 @@ namespace SWE.UI.Migrations
                 {
                     UserName = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    StudentId = table.Column<int>(type: "int", nullable: true),
                     EvaluationId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -97,9 +100,10 @@ namespace SWE.UI.Migrations
                 name: "Courses",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    DepartmentId = table.Column<int>(type: "int", nullable: true),
                     EvaluationId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -123,12 +127,13 @@ namespace SWE.UI.Migrations
                 name: "Professores",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    DepartmentId = table.Column<int>(type: "int", nullable: true),
                     EvaluationId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -152,24 +157,22 @@ namespace SWE.UI.Migrations
                 name: "CourseStudent",
                 columns: table => new
                 {
-                    CoursesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    StudentsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CourseId = table.Column<int>(type: "int", nullable: false),
                     StudentId = table.Column<int>(type: "int", nullable: false),
                     JoinDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CourseStudent", x => new { x.CoursesId, x.StudentsId });
+                    table.PrimaryKey("PK_CourseStudent", x => new { x.CourseId, x.StudentId });
                     table.ForeignKey(
-                        name: "FK_CourseStudent_Courses_CoursesId",
-                        column: x => x.CoursesId,
+                        name: "FK_CourseStudent_Courses_CourseId",
+                        column: x => x.CourseId,
                         principalTable: "Courses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CourseStudent_Studentes_StudentsId",
-                        column: x => x.StudentsId,
+                        name: "FK_CourseStudent_Studentes_StudentId",
+                        column: x => x.StudentId,
                         principalTable: "Studentes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -179,33 +182,31 @@ namespace SWE.UI.Migrations
                 name: "CourseProfessor",
                 columns: table => new
                 {
-                    CoursesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProfessoresId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CourseId = table.Column<int>(type: "int", nullable: false),
                     ProfessorId = table.Column<int>(type: "int", nullable: false),
                     JoinDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CourseProfessor", x => new { x.CoursesId, x.ProfessoresId });
+                    table.PrimaryKey("PK_CourseProfessor", x => new { x.CourseId, x.ProfessorId });
                     table.ForeignKey(
-                        name: "FK_CourseProfessor_Courses_CoursesId",
-                        column: x => x.CoursesId,
+                        name: "FK_CourseProfessor_Courses_CourseId",
+                        column: x => x.CourseId,
                         principalTable: "Courses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CourseProfessor_Professores_ProfessoresId",
-                        column: x => x.ProfessoresId,
+                        name: "FK_CourseProfessor_Professores_ProfessorId",
+                        column: x => x.ProfessorId,
                         principalTable: "Professores",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CourseProfessor_ProfessoresId",
+                name: "IX_CourseProfessor_ProfessorId",
                 table: "CourseProfessor",
-                column: "ProfessoresId");
+                column: "ProfessorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Courses_DepartmentId",
@@ -218,9 +219,9 @@ namespace SWE.UI.Migrations
                 column: "EvaluationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CourseStudent_StudentsId",
+                name: "IX_CourseStudent_StudentId",
                 table: "CourseStudent",
-                column: "StudentsId");
+                column: "StudentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Departments_FacultieId",

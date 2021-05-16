@@ -31,6 +31,7 @@ namespace SWE.UI.Forms
         }
         void get()
         {
+            work.Commet();
             var GetFuc = RFacultie.All();
             dataGridView1.DataSource = GetFuc.ToList();
         }

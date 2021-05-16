@@ -21,12 +21,13 @@ namespace SWE.UI.Migrations
 
             modelBuilder.Entity("SWE.UI.Models.Domain.Course", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<Guid?>("DepartmentId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("DepartmentId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("EvaluationId")
                         .HasColumnType("int");
@@ -45,13 +46,10 @@ namespace SWE.UI.Migrations
 
             modelBuilder.Entity("SWE.UI.Models.Domain.CourseProfessor", b =>
                 {
-                    b.Property<Guid>("CoursesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProfessoresId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProfessorId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("JoinDate")
@@ -59,25 +57,19 @@ namespace SWE.UI.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<int>("ProfessorId")
-                        .HasColumnType("int");
+                    b.HasKey("CourseId", "ProfessorId");
 
-                    b.HasKey("CoursesId", "ProfessoresId");
-
-                    b.HasIndex("ProfessoresId");
+                    b.HasIndex("ProfessorId");
 
                     b.ToTable("CourseProfessor");
                 });
 
             modelBuilder.Entity("SWE.UI.Models.Domain.CourseStudent", b =>
                 {
-                    b.Property<Guid>("CoursesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("StudentsId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("JoinDate")
@@ -85,24 +77,22 @@ namespace SWE.UI.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
+                    b.HasKey("CourseId", "StudentId");
 
-                    b.HasKey("CoursesId", "StudentsId");
-
-                    b.HasIndex("StudentsId");
+                    b.HasIndex("StudentId");
 
                     b.ToTable("CourseStudent");
                 });
 
             modelBuilder.Entity("SWE.UI.Models.Domain.Department", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<Guid?>("FacultieId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("FacultieId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -131,13 +121,13 @@ namespace SWE.UI.Migrations
 
             modelBuilder.Entity("SWE.UI.Models.Domain.Facultie", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -146,9 +136,10 @@ namespace SWE.UI.Migrations
 
             modelBuilder.Entity("SWE.UI.Models.Domain.Professor", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
@@ -156,8 +147,8 @@ namespace SWE.UI.Migrations
                     b.Property<DateTime>("BDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("DepartmentId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("DepartmentId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("EvaluationId")
                         .HasColumnType("int");
@@ -179,9 +170,10 @@ namespace SWE.UI.Migrations
 
             modelBuilder.Entity("SWE.UI.Models.Domain.Student", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
@@ -214,8 +206,8 @@ namespace SWE.UI.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("StudentId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("StudentId")
+                        .HasColumnType("int");
 
                     b.HasKey("UserName");
 
@@ -243,13 +235,13 @@ namespace SWE.UI.Migrations
                 {
                     b.HasOne("SWE.UI.Models.Domain.Course", null)
                         .WithMany()
-                        .HasForeignKey("CoursesId")
+                        .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SWE.UI.Models.Domain.Professor", null)
                         .WithMany()
-                        .HasForeignKey("ProfessoresId")
+                        .HasForeignKey("ProfessorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -258,13 +250,13 @@ namespace SWE.UI.Migrations
                 {
                     b.HasOne("SWE.UI.Models.Domain.Course", null)
                         .WithMany()
-                        .HasForeignKey("CoursesId")
+                        .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SWE.UI.Models.Domain.Student", null)
                         .WithMany()
-                        .HasForeignKey("StudentsId")
+                        .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

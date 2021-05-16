@@ -6,12 +6,18 @@ using System.Threading.Tasks;
 
 namespace SWE.UI.Models.Domain
 {
-    public class Evaluation : BaseClass
+    public class Evaluation
     {
+        public Evaluation()
+        {
+            StudentLog = new List<StudentLog>();
+            Professors = new List<Professor>();
+            Courses = new List<Course>();
+        }
         public int Id { get; set; }
-        public List<StudentLog> StudentLog { get; set; } = new List<StudentLog>();
-        public List<Professor> Professors { get; set; } = new List<Professor>();
-        public List<Course> Courses { get; set; } = new List<Course>();
+        public ICollection<StudentLog> StudentLog { get; set; }
+        public ICollection<Professor> Professors { get; set; }
+        public ICollection<Course> Courses { get; set; }
         public double Resualt { get; set; }
     }
 }

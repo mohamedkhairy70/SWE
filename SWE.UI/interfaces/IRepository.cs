@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SWE.UI.interfaces
 {
-    public interface IRepository<T> where T : class,IEntity
+    public interface IRepository<T> where T : class
     {
         void Add(T entity);
         void Add(IEnumerable<T> entities);
@@ -18,7 +18,7 @@ namespace SWE.UI.interfaces
         void Delete(IEnumerable<T> entities);
 
         IEnumerable<T> All();
-        T GetId(Guid Id);
+        T GetId(int Id);
         IQueryable<T> Where(Expression<Func<T,bool>> expression);
     }
 }

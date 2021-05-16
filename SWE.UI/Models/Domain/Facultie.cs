@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace SWE.UI.Models.Domain
 {
-    public class Facultie : BaseClass
+    public class Facultie
     {
+        public Facultie()
+        {
+            Departments = new List<Department>();
+        }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public List<Department> Departments { get; set; } = new ();
+        public ICollection<Department> Departments { get; set; }
     }
 }

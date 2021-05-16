@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SWE.UI.Models.Domain;
+using SWE.UI.Models.Mapping;
 using System.Reflection;
 
 namespace SWE.UI.Models
@@ -25,15 +26,14 @@ namespace SWE.UI.Models
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             modelBuilder.Entity<Course>()
-                .HasMany(s => s.Students)
-                .WithMany(b => b.Courses)
-                .UsingEntity<CourseStudent>
-                (bs => bs.HasOne<Student>().WithMany(),
-                 bs => bs.HasOne<Course>().WithMany())
-                .Property(bs => bs.JoinDate)
-                .HasDefaultValueSql("GETDATE()")
-                ;
-            ;
+               .HasMany(s => s.Students)
+               .WithMany(b => b.Courses)
+               .UsingEntity<CourseStudent>
+               (bs => bs.HasOne<Student>().WithMany(),
+                bs => bs.HasOne<Course>().WithMany())
+               .Property(bs => bs.JoinDate)
+               .HasDefaultValueSql("GETDATE()")
+               ;
             modelBuilder.Entity<Course>()
                 .HasMany(s => s.Professores)
                 .WithMany(b => b.Courses)
@@ -43,8 +43,9 @@ namespace SWE.UI.Models
                 .Property(bs => bs.JoinDate)
                 .HasDefaultValueSql("GETDATE()")
                 ;
+            modelBuilder.Entity<StudentLog>().HasKey(f => f.UserName);
 
-            modelBuilder.Entity<StudentLog>().HasKey(s => s.UserName);
+
         }
     }
 }

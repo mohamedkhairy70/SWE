@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SWE.UI.Models
 {
-    public class Repository<T> : IRepository<T> where T : class, IEntity
+    public class Repository<T> : IRepository<T> where T : class
     {
         DbSet<T> Table { get; set; }
 
@@ -26,7 +26,7 @@ namespace SWE.UI.Models
 
         public void Delete(IEnumerable<T> entities) => Table.RemoveRange(entities);
 
-        public T GetId(Guid Id) => Table.Find(Id);
+        public T GetId(int Id) => Table.Find(Id);
 
         public void Update(T entity) => Table.Attach(entity);
 

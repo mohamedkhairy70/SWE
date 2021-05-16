@@ -17,7 +17,7 @@ namespace SWE.UI.interfaces
         void Delete(T entity);
         void Delete(IEnumerable<T> entities);
 
-        IList<T> All();
+        IEnumerable<T> All();
         T GetId(Guid Id);
         IQueryable<T> Where(Expression<Func<T,bool>> expression);
     }

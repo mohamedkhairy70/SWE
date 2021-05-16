@@ -10,7 +10,7 @@ namespace SWE.UI.Models.Domain
     {
         public string Name { get; set; }
         public Facultie Facultie { get; set; }
-        public List<Professor> Professores { get; set; } = new ();
-        public List<Course> Courses { get; set; } = new();
+        public HashSet<List<Professor>> Professores { get; set; } = new ();
+        public HashSet<List<Course>> Courses { get; set; } = new();
     }
 }

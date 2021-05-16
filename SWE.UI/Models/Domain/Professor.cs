@@ -13,6 +13,6 @@ namespace SWE.UI.Models.Domain
         public string Phone { get; set; }
         public DateTime BDate { get; set; }
         public Department Department { get; set; }
-        public List<Course> Courses { get; set; }
+        public List<Course> Courses { get; set; } = new ();
     }
 }

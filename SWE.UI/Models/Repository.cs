@@ -20,13 +20,13 @@ namespace SWE.UI.Models
 
         public void Add(IEnumerable<T> entities) => Table.AddRange(entities);
 
-        public IList<T> All() => Table.AsNoTracking().ToList();
+        public IEnumerable<T> All() => Table.AsNoTracking();
 
         public void Delete(T entity) => Table.Remove(entity);
 
         public void Delete(IEnumerable<T> entities) => Table.RemoveRange(entities);
 
-        public T GetId(Guid Id) => Table.Single(x => x.Id == Id);
+        public T GetId(Guid Id) => Table.Find(Id);
 
         public void Update(T entity) => Table.Attach(entity);
 

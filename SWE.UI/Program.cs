@@ -36,7 +36,7 @@ namespace SWE.UI
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             ConfigureServices();
-            Application.Run(new Form1());
+            Application.Run(new Faculties());
 
 
             //var container = Bootstrap();

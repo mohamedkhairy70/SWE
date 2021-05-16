@@ -1,7 +1,7 @@
 ﻿
 namespace SWE.UI.Forms
 {
-    partial class Form1
+    partial class Faculties
     {
         /// <summary>
         /// Required designer variable.

@@ -10,8 +10,8 @@ using SWE.UI.Models;
 namespace SWE.UI.Migrations
 {
     [DbContext(typeof(SWEContext))]
-    [Migration("20210515151819_Add_CourseStudent_and_CourseProfessor")]
-    partial class Add_CourseStudent_and_CourseProfessor
+    [Migration("20210516013808_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,14 +21,16 @@ namespace SWE.UI.Migrations
                 .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("SWE.UI.Models.Course", b =>
+            modelBuilder.Entity("SWE.UI.Models.Domain.Course", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("DepartmentId")
+                    b.Property<Guid?>("DepartmentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("EvaluationId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -38,35 +40,46 @@ namespace SWE.UI.Migrations
 
                     b.HasIndex("DepartmentId");
 
+                    b.HasIndex("EvaluationId");
+
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("SWE.UI.Models.CourseProfessor", b =>
+            modelBuilder.Entity("SWE.UI.Models.Domain.CourseProfessor", b =>
                 {
+                    b.Property<Guid>("CoursesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProfessoresId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("JoinDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<int>("ProfessorId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("JoinDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETDATE()");
+                    b.HasKey("CoursesId", "ProfessoresId");
 
-                    b.HasKey("CourseId", "ProfessorId");
-
-                    b.HasIndex("ProfessorId");
+                    b.HasIndex("ProfessoresId");
 
                     b.ToTable("CourseProfessor");
                 });
 
-            modelBuilder.Entity("SWE.UI.Models.CourseStudent", b =>
+            modelBuilder.Entity("SWE.UI.Models.Domain.CourseStudent", b =>
                 {
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("CoursesId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("StudentId")
+                    b.Property<Guid>("StudentsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("CourseId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("JoinDate")
@@ -74,22 +87,24 @@ namespace SWE.UI.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.HasKey("CourseId", "StudentId");
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("StudentId");
+                    b.HasKey("CoursesId", "StudentsId");
+
+                    b.HasIndex("StudentsId");
 
                     b.ToTable("CourseStudent");
                 });
 
-            modelBuilder.Entity("SWE.UI.Models.Department", b =>
+            modelBuilder.Entity("SWE.UI.Models.Domain.Department", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("FacultieId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("FacultieId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -101,27 +116,41 @@ namespace SWE.UI.Migrations
                     b.ToTable("Departments");
                 });
 
-            modelBuilder.Entity("SWE.UI.Models.Facultie", b =>
+            modelBuilder.Entity("SWE.UI.Models.Domain.Evaluation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<double>("Resualt")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Evaluation");
+                });
+
+            modelBuilder.Entity("SWE.UI.Models.Domain.Facultie", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Faculties");
                 });
 
-            modelBuilder.Entity("SWE.UI.Models.Professor", b =>
+            modelBuilder.Entity("SWE.UI.Models.Domain.Professor", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
@@ -129,7 +158,10 @@ namespace SWE.UI.Migrations
                     b.Property<DateTime>("BDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DepartmentId")
+                    b.Property<Guid?>("DepartmentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("EvaluationId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -142,15 +174,16 @@ namespace SWE.UI.Migrations
 
                     b.HasIndex("DepartmentId");
 
+                    b.HasIndex("EvaluationId");
+
                     b.ToTable("Professores");
                 });
 
-            modelBuilder.Entity("SWE.UI.Models.Student", b =>
+            modelBuilder.Entity("SWE.UI.Models.Domain.Student", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
@@ -172,98 +205,124 @@ namespace SWE.UI.Migrations
                     b.ToTable("Studentes");
                 });
 
-            modelBuilder.Entity("SWE.UI.Models.StudentLog", b =>
+            modelBuilder.Entity("SWE.UI.Models.Domain.StudentLog", b =>
                 {
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int?>("EvaluationId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StudentId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("StudentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("UserName");
+
+                    b.HasIndex("EvaluationId");
 
                     b.HasIndex("StudentId");
 
                     b.ToTable("StudentLog");
                 });
 
-            modelBuilder.Entity("SWE.UI.Models.Course", b =>
+            modelBuilder.Entity("SWE.UI.Models.Domain.Course", b =>
                 {
-                    b.HasOne("SWE.UI.Models.Department", "Department")
+                    b.HasOne("SWE.UI.Models.Domain.Department", "Department")
                         .WithMany("Courses")
                         .HasForeignKey("DepartmentId");
+
+                    b.HasOne("SWE.UI.Models.Domain.Evaluation", null)
+                        .WithMany("Courses")
+                        .HasForeignKey("EvaluationId");
 
                     b.Navigation("Department");
                 });
 
-            modelBuilder.Entity("SWE.UI.Models.CourseProfessor", b =>
+            modelBuilder.Entity("SWE.UI.Models.Domain.CourseProfessor", b =>
                 {
-                    b.HasOne("SWE.UI.Models.Course", null)
+                    b.HasOne("SWE.UI.Models.Domain.Course", null)
                         .WithMany()
-                        .HasForeignKey("CourseId")
+                        .HasForeignKey("CoursesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SWE.UI.Models.Professor", null)
+                    b.HasOne("SWE.UI.Models.Domain.Professor", null)
                         .WithMany()
-                        .HasForeignKey("ProfessorId")
+                        .HasForeignKey("ProfessoresId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SWE.UI.Models.CourseStudent", b =>
+            modelBuilder.Entity("SWE.UI.Models.Domain.CourseStudent", b =>
                 {
-                    b.HasOne("SWE.UI.Models.Course", null)
+                    b.HasOne("SWE.UI.Models.Domain.Course", null)
                         .WithMany()
-                        .HasForeignKey("CourseId")
+                        .HasForeignKey("CoursesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SWE.UI.Models.Student", null)
+                    b.HasOne("SWE.UI.Models.Domain.Student", null)
                         .WithMany()
-                        .HasForeignKey("StudentId")
+                        .HasForeignKey("StudentsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SWE.UI.Models.Department", b =>
+            modelBuilder.Entity("SWE.UI.Models.Domain.Department", b =>
                 {
-                    b.HasOne("SWE.UI.Models.Facultie", "Facultie")
+                    b.HasOne("SWE.UI.Models.Domain.Facultie", "Facultie")
                         .WithMany("Departments")
                         .HasForeignKey("FacultieId");
 
                     b.Navigation("Facultie");
                 });
 
-            modelBuilder.Entity("SWE.UI.Models.Professor", b =>
+            modelBuilder.Entity("SWE.UI.Models.Domain.Professor", b =>
                 {
-                    b.HasOne("SWE.UI.Models.Department", "Department")
+                    b.HasOne("SWE.UI.Models.Domain.Department", "Department")
                         .WithMany("Professores")
                         .HasForeignKey("DepartmentId");
+
+                    b.HasOne("SWE.UI.Models.Domain.Evaluation", null)
+                        .WithMany("Professors")
+                        .HasForeignKey("EvaluationId");
 
                     b.Navigation("Department");
                 });
 
-            modelBuilder.Entity("SWE.UI.Models.StudentLog", b =>
+            modelBuilder.Entity("SWE.UI.Models.Domain.StudentLog", b =>
                 {
-                    b.HasOne("SWE.UI.Models.Student", "Student")
+                    b.HasOne("SWE.UI.Models.Domain.Evaluation", null)
+                        .WithMany("StudentLog")
+                        .HasForeignKey("EvaluationId");
+
+                    b.HasOne("SWE.UI.Models.Domain.Student", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId");
 
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("SWE.UI.Models.Department", b =>
+            modelBuilder.Entity("SWE.UI.Models.Domain.Department", b =>
                 {
                     b.Navigation("Courses");
 
                     b.Navigation("Professores");
                 });
 
-            modelBuilder.Entity("SWE.UI.Models.Facultie", b =>
+            modelBuilder.Entity("SWE.UI.Models.Domain.Evaluation", b =>
+                {
+                    b.Navigation("Courses");
+
+                    b.Navigation("Professors");
+
+                    b.Navigation("StudentLog");
+                });
+
+            modelBuilder.Entity("SWE.UI.Models.Domain.Facultie", b =>
                 {
                     b.Navigation("Departments");
                 });

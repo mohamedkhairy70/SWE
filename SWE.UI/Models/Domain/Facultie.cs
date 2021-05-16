@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SWE.UI.Models
+namespace SWE.UI.Models.Domain
 {
-    public class Facultie
+    public class Facultie : BaseClass
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public List<Department> Departments { get; set; } = new ();
     }

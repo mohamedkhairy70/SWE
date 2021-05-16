@@ -5,11 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace SWE.UI.Models
+namespace SWE.UI.Models.Domain
 {
-    public class Student
+    public class Student : BaseClass
     {
-        public int Id { get; set; }
         public string FullName { get; set; }
         public string Leval { get; set; }
         public string Address { get; set; }

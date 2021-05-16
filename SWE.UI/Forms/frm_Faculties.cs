@@ -15,25 +15,29 @@ namespace SWE.UI.Forms
 {
     public partial class frm_Faculties : Form
     {
-        IUnitOfWork<Facultie> work;
-        IRepository<Facultie> RFacultie;
+
         public frm_Faculties()
         {
             InitializeComponent();
-            work = new UnitOfWork<Facultie>(new SWEContext());
-            RFacultie = new Repository<Facultie>(new SWEContext());
         }
         void Add()
         {
-            RFacultie.Add(new Facultie { Name = textBox1.Text });
+            using (var work = new UnitOfWork(new SWEContext()))
+            {
+                work.Facultie.Add(new Facultie { Name = textBox1.Text });
 
-            work.Commet();
+                work.Commet();
+            }
+            
         }
         void get()
         {
-            work.Commet();
-            var GetFuc = RFacultie.All();
-            dataGridView1.DataSource = GetFuc.ToList();
+            using (var work = new UnitOfWork(new SWEContext()))
+            {
+                var GetFuc = work.Facultie.All().ToList();
+                dataGridView1.DataSource = GetFuc;
+            }
+            
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -42,15 +46,9 @@ namespace SWE.UI.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 1000; i++)
-            {
-                Add();
-                
-            }
+            
+            Add();
             get();
-
-            //Add();
-            //get();
         }
     }
 }

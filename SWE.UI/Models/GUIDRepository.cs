@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace SWE.UI.Models
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class GUIDRepository<T> : IRepository<T> where T : class
     {
         DbSet<T> Table { get; set; }
 
-        public Repository(SWEContext context) => Table = context.Set<T>();
+        public GUIDRepository(SWEContext context) => Table = context.Set<T>();
 
         public void Add(T entity) => Table.Add(entity);
 

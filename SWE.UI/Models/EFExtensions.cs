@@ -15,9 +15,9 @@ namespace SWE.UI.Models
         {
             services.AddDbContext<SWEContext>(options => options.UseSqlServer(ConnectionString, x => x.MigrationsAssembly("SWECon")));
 
-            services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
+            services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
 
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(GUIDRepository<>));
 
             return services;
         }

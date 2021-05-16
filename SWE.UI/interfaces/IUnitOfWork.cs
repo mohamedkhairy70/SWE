@@ -1,12 +1,12 @@
-﻿using System;
+﻿using SWE.UI.Repositories.FacultieRepository;
+using System;
 using System.Threading.Tasks;
 
 namespace SWE.UI.interfaces
 {
-    interface IUnitOfWork<T> : IDisposable where T : class
+    interface IUnitOfWork : IDisposable 
     {
-        void Commet();
-
-        void Dispose();
+        IFacultieRepository Facultie { get; }
+        int Commet();
     }
 }

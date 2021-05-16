@@ -19,9 +19,9 @@ namespace SWE.UI
         {
             var services = new ServiceCollection();
 
-            services.AddScoped(typeof(IUnitOfWork<>), typeof(Models.UnitOfWork<>));
+            services.AddScoped(typeof(IUnitOfWork), typeof(Models.UnitOfWork));
 
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(GUIDRepository<>));
 
             ServiceProvider = services.BuildServiceProvider();
         }

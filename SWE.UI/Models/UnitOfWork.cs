@@ -9,9 +9,7 @@ namespace SWE.UI.Models
         public UnitOfWork(SWEContext context)
         {
             this.context = context;
-            Repository = new Repository<T>(context);
         }
-        public IRepository<T> Repository { get; }
 
         public void Commet() => context.SaveChanges();
 

@@ -13,23 +13,25 @@ using System.Windows.Forms;
 
 namespace SWE.UI.Forms
 {
-    public partial class Form1 : Form
+    public partial class frm_Faculties : Form
     {
         IUnitOfWork<Facultie> work;
-        public Form1()
+        IRepository<Facultie> RFacultie;
+        public frm_Faculties()
         {
             InitializeComponent();
             work = new UnitOfWork<Facultie>(new SWEContext());
+            RFacultie = new Repository<Facultie>(new SWEContext());
         }
         void Add()
         {
-            work.Repository.Add(new Facultie { Name = textBox1.Text });
-            
+            RFacultie.Add(new Facultie { Name = textBox1.Text });
+
             work.Commet();
         }
         void get()
         {
-            var GetFuc = work.Repository.All();
+            var GetFuc = RFacultie.All();
             dataGridView1.DataSource = GetFuc.ToList();
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -42,9 +44,9 @@ namespace SWE.UI.Forms
             for (int i = 0; i < 1000; i++)
             {
                 Add();
-                get();
+                
             }
-
+            get();
 
             //Add();
             //get();

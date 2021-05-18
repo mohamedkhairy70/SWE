@@ -15,7 +15,7 @@ namespace SWE.UI.Models
         public DbSet<Student> Studentes { get; set; }
         public DbSet<Evaluation> Evaluation { get; set; }
         public DbSet<StudentLog> StudentLog { get; set; }
-         
+        //public DbSet<DepartmentProfessor> DepartmentProfessores { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source = .\khairy;Initial catalog=SWEDB;Integrated Security=true");
@@ -43,6 +43,15 @@ namespace SWE.UI.Models
                 .Property(bs => bs.JoinDate)
                 .HasDefaultValueSql("GETDATE()")
                 ;
+
+            modelBuilder.Entity<Department>()
+                .HasOne(s => s.ProfessorManage)
+                .WithOne(b => b.DepartmentProfessor);
+
+            modelBuilder.Entity<Professor>()
+                .HasOne(s => s.ProfessorManage)
+                .WithOne();
+
             modelBuilder.Entity<StudentLog>().HasKey(f => f.UserName);
 
             modelBuilder.Entity<Course>().Property(f => f.IsDelete).HasDefaultValue(false);

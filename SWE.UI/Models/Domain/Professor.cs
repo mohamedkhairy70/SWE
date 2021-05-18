@@ -15,6 +15,8 @@ namespace SWE.UI.Models.Domain
         public string Phone { get; set; }
         public bool IsDelete { get; set; }
         public DateTime BDate { get; set; }
+        public Professor ProfessorManage { get; set; }
+        public Department DepartmentProfessor { get; set; }
         public Department Department { get; set; }
         public ICollection<Course> Courses { get; set; }
     }

@@ -17,6 +17,8 @@ namespace SWE.UI.Models.Domain
         public string Name { get; set; }
         public bool IsDelete { get; set; }
         public Facultie Facultie { get; set; }
+        public int ProfessorManageId { get; set; }
+        public Professor ProfessorManage { get; set; }
         public List<Professor> Professores { get; set; }
         public List<Course> Courses { get; set; }
     }

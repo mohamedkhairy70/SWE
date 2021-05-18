@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SWE.UI.Models;
 
 namespace SWE.UI.Migrations
 {
     [DbContext(typeof(SWEContext))]
-    partial class SWEContextModelSnapshot : ModelSnapshot
+    [Migration("20210518163409_RemoveDepartmentProfessor")]
+    partial class RemoveDepartmentProfessor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,15 +109,9 @@ namespace SWE.UI.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProfessorManageId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("FacultieId");
-
-                    b.HasIndex("ProfessorManageId")
-                        .IsUnique();
 
                     b.ToTable("Departments");
                 });
@@ -185,18 +181,11 @@ namespace SWE.UI.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProfessorManageId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
 
                     b.HasIndex("EvaluationId");
-
-                    b.HasIndex("ProfessorManageId")
-                        .IsUnique()
-                        .HasFilter("[ProfessorManageId] IS NOT NULL");
 
                     b.ToTable("Professores");
                 });
@@ -305,15 +294,7 @@ namespace SWE.UI.Migrations
                         .WithMany("Departments")
                         .HasForeignKey("FacultieId");
 
-                    b.HasOne("SWE.UI.Models.Domain.Professor", "ProfessorManage")
-                        .WithOne("DepartmentProfessor")
-                        .HasForeignKey("SWE.UI.Models.Domain.Department", "ProfessorManageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Facultie");
-
-                    b.Navigation("ProfessorManage");
                 });
 
             modelBuilder.Entity("SWE.UI.Models.Domain.Professor", b =>
@@ -326,13 +307,7 @@ namespace SWE.UI.Migrations
                         .WithMany("Professors")
                         .HasForeignKey("EvaluationId");
 
-                    b.HasOne("SWE.UI.Models.Domain.Professor", "ProfessorManage")
-                        .WithOne()
-                        .HasForeignKey("SWE.UI.Models.Domain.Professor", "ProfessorManageId");
-
                     b.Navigation("Department");
-
-                    b.Navigation("ProfessorManage");
                 });
 
             modelBuilder.Entity("SWE.UI.Models.Domain.StudentLog", b =>
@@ -367,11 +342,6 @@ namespace SWE.UI.Migrations
             modelBuilder.Entity("SWE.UI.Models.Domain.Facultie", b =>
                 {
                     b.Navigation("Departments");
-                });
-
-            modelBuilder.Entity("SWE.UI.Models.Domain.Professor", b =>
-                {
-                    b.Navigation("DepartmentProfessor");
                 });
 #pragma warning restore 612, 618
         }

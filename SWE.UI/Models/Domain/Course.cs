@@ -15,6 +15,7 @@ namespace SWE.UI.Models.Domain
         }
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool IsDelete { get; set; }
         public Department Department { get; set; }
         public ICollection<Professor> Professores { get; set; }
         public ICollection<Student> Students { get; set; }

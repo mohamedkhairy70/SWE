@@ -12,10 +12,14 @@ namespace SWE.UI.Models
 {
     public class GUIDRepository<T> : IRepository<T> where T : class
     {
+        protected readonly SWEContext Context;
         DbSet<T> Table { get; set; }
 
-        public GUIDRepository(SWEContext context) => Table = context.Set<T>();
-
+        public GUIDRepository(SWEContext context)
+        {
+            Table = context.Set<T>();
+            Context = context;
+        }
         public void Add(T entity) => Table.Add(entity);
 
         public void Add(IEnumerable<T> entities) => Table.AddRange(entities);
@@ -28,9 +32,9 @@ namespace SWE.UI.Models
 
         public T GetId(int Id) => Table.Find(Id);
 
-        public void Update(T entity) => Table.Attach(entity);
+        public void Update(T entity) => Table.Update(entity);
 
-        public void Update(IEnumerable<T> entities) => Table.AttachRange(entities);
+        public void Update(IEnumerable<T> entities) => Table.UpdateRange(entities);
 
         public IQueryable<T> Where(Expression<Func<T, bool>> expression) => Table.Where<T>(expression);
     }

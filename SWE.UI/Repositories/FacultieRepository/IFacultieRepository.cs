@@ -10,6 +10,7 @@ namespace SWE.UI.Repositories.FacultieRepository
 {
     public interface IFacultieRepository : IRepository<Facultie>
     {
-
+        IEnumerable<Facultie> AllNotDeleted();
+        IEnumerable<Facultie> GetByName(string _Name);
     }
 }

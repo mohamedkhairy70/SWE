@@ -18,6 +18,7 @@ namespace SWE.UI.Models.Domain
         public string Leval { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }
+        public bool IsDelete { get; set; }
         public DateTime BDate { get; set; }
         public ICollection<Course> Courses { get; set; }
     }

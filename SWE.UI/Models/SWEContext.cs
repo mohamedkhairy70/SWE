@@ -45,7 +45,11 @@ namespace SWE.UI.Models
                 ;
             modelBuilder.Entity<StudentLog>().HasKey(f => f.UserName);
 
-
+            modelBuilder.Entity<Course>().Property(f => f.IsDelete).HasDefaultValue(false);
+            modelBuilder.Entity<Department>().Property(f => f.IsDelete).HasDefaultValue(false);
+            modelBuilder.Entity<Facultie>().Property(f => f.IsDelete).HasDefaultValue(false);
+            modelBuilder.Entity<Professor>().Property(f => f.IsDelete).HasDefaultValue(false);
+            modelBuilder.Entity<Student>().Property(f => f.IsDelete).HasDefaultValue(false);
         }
     }
 }

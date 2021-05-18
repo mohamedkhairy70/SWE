@@ -15,6 +15,7 @@ namespace SWE.UI.Models.Domain
         }
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool IsDelete { get; set; }
         public Facultie Facultie { get; set; }
         public List<Professor> Professores { get; set; }
         public List<Course> Courses { get; set; }

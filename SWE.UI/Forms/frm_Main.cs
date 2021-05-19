@@ -28,5 +28,11 @@ namespace SWE.UI.Forms
             var frm = new frm_Department();
             frm.ShowDialog();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var frm = new frm_Professor();
+            frm.ShowDialog();
+        }
     }
 }

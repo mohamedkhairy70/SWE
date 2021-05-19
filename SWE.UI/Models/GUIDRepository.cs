@@ -30,7 +30,7 @@ namespace SWE.UI.Models
 
         public void Delete(IEnumerable<T> entities) => Table.RemoveRange(entities);
 
-        public T GetId(int Id) => Table.Find(Id);
+        public T GetId(int? Id) => Table.Find(Id);
 
         public void Update(T entity) => Table.Update(entity);
 

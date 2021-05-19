@@ -9,6 +9,7 @@ namespace SWE.UI.Models.Domain
         {
             Courses = new List<Course>();
             Department = new Department();
+            DepartmentProfessor = new Department();
         }
         public int Id { get; set; }
         public string Name { get; set; }
@@ -17,6 +18,7 @@ namespace SWE.UI.Models.Domain
         public bool IsDelete { get; set; }
         public DateTime BDate { get; set; }
         public Department DepartmentProfessor { get; set; }
+        public int? ProfessorManageId { get; set; }
         public Professor ProfessorManage { get; set; }
         public Department Department { get; set; }
         public ICollection<Course> Courses { get; set; }

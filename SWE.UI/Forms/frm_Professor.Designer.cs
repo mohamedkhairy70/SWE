@@ -31,7 +31,7 @@ namespace SWE.UI.Forms
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
-            this.cm_Professor = new System.Windows.Forms.ComboBox();
+            this.cm_ProfessorManage = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cm_Department = new System.Windows.Forms.ComboBox();
             this.button3 = new System.Windows.Forms.Button();
@@ -45,8 +45,8 @@ namespace SWE.UI.Forms
             this.GvResult = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NameDep = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NameProfManage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NameDepartment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NameProfessorfManage = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Edit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Delete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel1.SuspendLayout();
@@ -57,7 +57,7 @@ namespace SWE.UI.Forms
             // panel1
             // 
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.cm_Professor);
+            this.panel1.Controls.Add(this.cm_ProfessorManage);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.cm_Department);
             this.panel1.Controls.Add(this.button3);
@@ -82,13 +82,13 @@ namespace SWE.UI.Forms
             this.label4.TabIndex = 14;
             this.label4.Text = "المدير";
             // 
-            // cm_Professor
+            // cm_ProfessorManage
             // 
-            this.cm_Professor.FormattingEnabled = true;
-            this.cm_Professor.Location = new System.Drawing.Point(286, 118);
-            this.cm_Professor.Name = "cm_Professor";
-            this.cm_Professor.Size = new System.Drawing.Size(261, 27);
-            this.cm_Professor.TabIndex = 13;
+            this.cm_ProfessorManage.FormattingEnabled = true;
+            this.cm_ProfessorManage.Location = new System.Drawing.Point(286, 118);
+            this.cm_ProfessorManage.Name = "cm_ProfessorManage";
+            this.cm_ProfessorManage.Size = new System.Drawing.Size(261, 27);
+            this.cm_ProfessorManage.TabIndex = 13;
             // 
             // label3
             // 
@@ -188,8 +188,8 @@ namespace SWE.UI.Forms
             this.GvResult.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
             this.Name,
-            this.NameDep,
-            this.NameProfManage,
+            this.NameDepartment,
+            this.NameProfessorfManage,
             this.Edit,
             this.Delete});
             this.GvResult.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -215,19 +215,19 @@ namespace SWE.UI.Forms
             this.Name.Name = "Name";
             this.Name.ReadOnly = true;
             // 
-            // NameDep
+            // NameDepartment
             // 
-            this.NameDep.DataPropertyName = "NameDep";
-            this.NameDep.HeaderText = "اسم القسم";
-            this.NameDep.Name = "NameDep";
-            this.NameDep.ReadOnly = true;
+            this.NameDepartment.DataPropertyName = "NameDepartment";
+            this.NameDepartment.HeaderText = "اسم القسم";
+            this.NameDepartment.Name = "NameDepartment";
+            this.NameDepartment.ReadOnly = true;
             // 
-            // NameProfManage
+            // NameProfessorfManage
             // 
-            this.NameProfManage.DataPropertyName = "NameProfManage";
-            this.NameProfManage.HeaderText = "اسم المدير";
-            this.NameProfManage.Name = "NameProfManage";
-            this.NameProfManage.ReadOnly = true;
+            this.NameProfessorfManage.DataPropertyName = "NameProfessorfManage";
+            this.NameProfessorfManage.HeaderText = "اسم المدير";
+            this.NameProfessorfManage.Name = "NameProfessorfManage";
+            this.NameProfessorfManage.ReadOnly = true;
             // 
             // Edit
             // 
@@ -284,13 +284,13 @@ namespace SWE.UI.Forms
         private System.Windows.Forms.TextBox txt_Id;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox cm_Professor;
+        private System.Windows.Forms.ComboBox cm_ProfessorManage;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cm_Department;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NameDep;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NameProfManage;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NameDepartment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NameProfessorfManage;
         private System.Windows.Forms.DataGridViewButtonColumn Edit;
         private System.Windows.Forms.DataGridViewButtonColumn Delete;
     }

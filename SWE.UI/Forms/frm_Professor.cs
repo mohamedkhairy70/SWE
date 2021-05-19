@@ -22,17 +22,17 @@ namespace SWE.UI.Forms
         }
 
 
-        void Updated(int _IdDepartment, string _NameDepartment, int IdDepartment, int? IdManager, bool _IsDelete)
+        void Updated(int _Idprofessor, string _NameDepartment, int _IdDepartment, int? _IdManager, bool _IsDelete)
         {
             using (var work = new UnitOfWork(new SWEContext()))
             {
-                var Department = work.Department.GetId(IdDepartment);
-                var professor = (IdManager == null) ? null : work.Professor.GetId(IdManager);
+                var department = work.Department.GetId(_IdDepartment);
+                var professor = (_IdManager == null) ? null : work.Professor.GetId(_IdManager);
                 work.Professor.Update(new Professor
                 {
-                    Id = _IdDepartment,
+                    Id = _Idprofessor,
                     Name = _NameDepartment,
-                    Department = Department,
+                    Department = department,
                     ProfessorManage = professor,
                     IsDelete = _IsDelete
                 });
@@ -41,13 +41,13 @@ namespace SWE.UI.Forms
             }
 
         }
-        void Deleted(int IdDepartment, string _NameProfessor, bool _IsDelete)
+        void Deleted(int _IdDepartment, string _NameProfessor, bool _IsDelete)
         {
             using (var work = new UnitOfWork(new SWEContext()))
             {
                 work.Professor.Update(new Professor
                 {
-                    Id = IdDepartment,
+                    Id = _IdDepartment,
                     Name = _NameProfessor,
                     IsDelete = _IsDelete
                 });
@@ -56,12 +56,12 @@ namespace SWE.UI.Forms
             }
 
         }
-        void Add(string _NameProfessor, int IdDepartment, int? IdManager)
+        void Add(string _NameProfessor, int _IdDepartment, int? _IdManager)
         {
             using (var work = new UnitOfWork(new SWEContext()))
             {
-                var department = work.Department.GetId(IdDepartment);
-                var professor = (IdManager == null) ? null : work.Professor.GetId(IdManager);
+                var department = work.Department.GetId(_IdDepartment);
+                var professor = (_IdManager == null) ? null : work.Professor.GetId(_IdManager);
                 work.Professor.Add(new Professor { Name = _NameProfessor, Department = department, ProfessorManage = professor });
 
                 work.Commet();
@@ -72,26 +72,32 @@ namespace SWE.UI.Forms
         {
             using (var work = new UnitOfWork(new SWEContext()))
             {
-                var GetDep = work.Department.AllNotDeleted().Select(d => new { d.Id, d.Name }).ToList();
-                var GetprofManage = work.Professor.AllNotDeleted().Select(d => new { d.Id, d.Name }).ToList();
-                var GetFuc = work.Professor.AllNotDeleted()
-                    .Select(f => new { f.Id, f.Name, NameDep = GetDep.Find(x=>x.Id == f.Department.Id)
-                    , NameProfManage = GetprofManage.Find(x =>x.Id == f.ProfessorManageId)}).ToList();
-                GvResult.DataSource = GetFuc;
+                var getListDepartment = work.Department.AllNotDeleted().Select(d => new { d.Id, d.Name }).ToList();
+                var getListProfessorManage = work.Professor.AllNotDeleted().Select(d => new { d.Id, d.Name }).ToList();
+                var getListProfessor = work.Professor.AllNotDeleted()
+                    .Select(f => new {
+                        f.Id,
+                        f.Name,
+                        NameDepartment = f.DepartmentsId != null ? f.Department.Name:null ,
+                        NameProfessorfManage = f.ProfessorManageId != null ? f.ProfessorManage.Name:null
+                    }).ToList();
 
-                if (GetDep.Count > 0)
+
+                GvResult.DataSource = getListProfessor;
+
+                if (getListDepartment.Count > 0)
                 {
-                    cm_Department.DataSource = GetDep;
+                    cm_Department.DataSource = getListDepartment;
                     cm_Department.DisplayMember = "Name";
                     cm_Department.ValueMember = "Id";
                     cm_Department.SelectedIndex = -1;
                 }
-                if (GetprofManage.Count > 0)
+                if (getListProfessorManage.Count > 0)
                 {
-                    cm_Professor.DataSource = GetprofManage;
-                    cm_Professor.DisplayMember = "Name";
-                    cm_Professor.ValueMember = "Id";
-                    cm_Professor.SelectedIndex = -1;
+                    cm_ProfessorManage.DataSource = getListProfessorManage;
+                    cm_ProfessorManage.DisplayMember = "Name";
+                    cm_ProfessorManage.ValueMember = "Id";
+                    cm_ProfessorManage.SelectedIndex = -1;
                 }
             }
             txt_Id.Clear();
@@ -101,25 +107,30 @@ namespace SWE.UI.Forms
         {
             using (var work = new UnitOfWork(new SWEContext()))
             {
-                var GetDep = work.Facultie.AllNotDeleted().Select(d => new { d.Id, d.Name }).ToList();
-                var GetprofManage = work.Professor.AllNotDeleted().Select(d => new { d.Id, d.Name }).ToList();
-                var GetFuc = work.Professor.GetByName(_Name)
-                    .Select(f => new { f.Id, f.Name, DepName = f.Department.Name, ProfManage = f.ProfessorManage.Name }).ToList();
-                GvResult.DataSource = GetFuc;
+                var getListDepartment = work.Department.AllNotDeleted().Select(d => new { d.Id, d.Name }).ToList();
+                var getListProfessorManage = work.Professor.AllNotDeleted().Select(d => new { d.Id, d.Name }).ToList();
+                var getListProfessor = work.Professor.GetByName(_Name)
+                    .Select(f => new {
+                        f.Id,
+                        f.Name,
+                        NameDep = f.Department.Name,
+                        NameProfManage = (f.ProfessorManageId == null) ? null : f.ProfessorManage.Name
+                    }).ToList(); ;
+                GvResult.DataSource = getListProfessor;
 
-                if (GetDep.Count > 0)
+                if (getListDepartment.Count > 0)
                 {
-                    cm_Department.DataSource = GetDep;
+                    cm_Department.DataSource = getListDepartment;
                     cm_Department.DisplayMember = "Name";
                     cm_Department.ValueMember = "Id";
                     cm_Department.SelectedIndex = -1;
                 }
-                if (GetprofManage.Count > 0)
+                if (getListProfessorManage.Count > 0)
                 {
-                    cm_Professor.DataSource = GetprofManage;
-                    cm_Professor.DisplayMember = "Name";
-                    cm_Professor.ValueMember = "Id";
-                    cm_Professor.SelectedIndex = -1;
+                    cm_ProfessorManage.DataSource = getListProfessorManage;
+                    cm_ProfessorManage.DisplayMember = "Name";
+                    cm_ProfessorManage.ValueMember = "Id";
+                    cm_ProfessorManage.SelectedIndex = -1;
                 }
             }
 
@@ -141,15 +152,15 @@ namespace SWE.UI.Forms
             }
             if (GvResult.Columns[e.ColumnIndex].Name == "Delete")
             {
-                var NameFaculties = GvResult.Rows[e.RowIndex].Cells["Name"].Value.ToString();
-                var IdFaculties = GvResult.Rows[e.RowIndex].Cells["Id"].Value.ToString();
-                var msg = MessageBox.Show($"هل انت متأكد بأنك تريد حذف ... {NameFaculties}", "رسالة حذف"
+                var nameFaculties = GvResult.Rows[e.RowIndex].Cells["Name"].Value.ToString();
+                var idFaculties = GvResult.Rows[e.RowIndex].Cells["Id"].Value.ToString();
+                var msg = MessageBox.Show($"هل انت متأكد بأنك تريد حذف ... {nameFaculties}", "رسالة حذف"
                     , MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (msg == DialogResult.Yes)
                 {
                     //For Update Entities (Id,Name,IsDeleted = true) for visable from my project Not my database
-                    Deleted(Convert.ToInt32(IdFaculties), NameFaculties, true);
+                    Deleted(Convert.ToInt32(idFaculties), nameFaculties, true);
                     //For Get All Data and Clear Data
                     get();
                 }
@@ -162,9 +173,9 @@ namespace SWE.UI.Forms
             {
 
                 int? profManage = null;
-                if (cm_Professor.SelectedIndex >= 0)
+                if (cm_ProfessorManage.SelectedIndex >= 0)
                 {
-                    profManage = Convert.ToInt32(cm_Professor.SelectedValue);
+                    profManage = Convert.ToInt32(cm_ProfessorManage.SelectedValue);
                 }
                 //For Add Entities (IdDepartment auto No Bas,NameDepartment,IdFacultie)
                 Add(txt_Name.Text, Convert.ToInt32(cm_Department.SelectedValue), profManage);
@@ -175,9 +186,9 @@ namespace SWE.UI.Forms
             {
 
                 int? profManage = null;
-                if (cm_Professor.SelectedIndex >= 0)
+                if (cm_ProfessorManage.SelectedIndex >= 0)
                 {
-                    profManage = Convert.ToInt32(cm_Professor.SelectedValue);
+                    profManage = Convert.ToInt32(cm_ProfessorManage.SelectedValue);
                 }
                 //For Update Entities (IdDepartment,NameDepartment,IdFacultie,IsDeleted)
                 Updated(Convert.ToInt32(txt_Id.Text), txt_Name.Text, Convert.ToInt32(cm_Department.SelectedValue), profManage, false);

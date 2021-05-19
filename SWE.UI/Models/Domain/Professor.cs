@@ -5,12 +5,6 @@ namespace SWE.UI.Models.Domain
 {
     public class Professor
     {
-        public Professor()
-        {
-            Courses = new List<Course>();
-            Department = new Department();
-            DepartmentProfessor = new Department();
-        }
         public int Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
@@ -20,7 +14,8 @@ namespace SWE.UI.Models.Domain
         public Department DepartmentProfessor { get; set; }
         public int? ProfessorManageId { get; set; }
         public Professor ProfessorManage { get; set; }
+        public int? DepartmentsId { get; set; }
         public Department Department { get; set; }
-        public ICollection<Course> Courses { get; set; }
+        public List<Course> Courses { get; set; } = new List<Course>();
     }
 }

@@ -45,8 +45,8 @@ namespace SWE.UI.Forms
             this.GvResult = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NameFuc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NameProf = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NameFacultie = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NameProfessor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Edit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Delete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel1.SuspendLayout();
@@ -188,8 +188,8 @@ namespace SWE.UI.Forms
             this.GvResult.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
             this.Name,
-            this.NameFuc,
-            this.NameProf,
+            this.NameFacultie,
+            this.NameProfessor,
             this.Edit,
             this.Delete});
             this.GvResult.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -215,19 +215,19 @@ namespace SWE.UI.Forms
             this.Name.Name = "Name";
             this.Name.ReadOnly = true;
             // 
-            // NameFuc
+            // NameFacultie
             // 
-            this.NameFuc.DataPropertyName = "NameFuc";
-            this.NameFuc.HeaderText = "اسم الكلية";
-            this.NameFuc.Name = "NameFuc";
-            this.NameFuc.ReadOnly = true;
+            this.NameFacultie.DataPropertyName = "NameFacultie";
+            this.NameFacultie.HeaderText = "اسم الكلية";
+            this.NameFacultie.Name = "NameFacultie";
+            this.NameFacultie.ReadOnly = true;
             // 
-            // NameProf
+            // NameProfessor
             // 
-            this.NameProf.DataPropertyName = "NameProf";
-            this.NameProf.HeaderText = "رئيس القسم";
-            this.NameProf.Name = "NameProf";
-            this.NameProf.ReadOnly = true;
+            this.NameProfessor.DataPropertyName = "NameProfessor";
+            this.NameProfessor.HeaderText = "رئيس القسم";
+            this.NameProfessor.Name = "NameProfessor";
+            this.NameProfessor.ReadOnly = true;
             // 
             // Edit
             // 
@@ -259,6 +259,7 @@ namespace SWE.UI.Forms
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.Name = "frm_Department";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
             this.Text = "اقسام الكليات";
@@ -289,8 +290,8 @@ namespace SWE.UI.Forms
         private System.Windows.Forms.ComboBox cm_Professor;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NameFuc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NameProf;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NameFacultie;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NameProfessor;
         private System.Windows.Forms.DataGridViewButtonColumn Edit;
         private System.Windows.Forms.DataGridViewButtonColumn Delete;
     }

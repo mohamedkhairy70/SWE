@@ -8,16 +8,11 @@ namespace SWE.UI.Models.Domain
 {
     public class Course
     {
-        public Course()
-        {
-            Professores = new List<Professor>();
-            Students = new List<Student>();
-        }
         public int Id { get; set; }
         public string Name { get; set; }
         public bool IsDelete { get; set; }
         public Department Department { get; set; }
-        public ICollection<Professor> Professores { get; set; }
-        public ICollection<Student> Students { get; set; }
+        public List<Professor> Professores { get; set; } = new List<Professor>();
+        public List<Student> Students { get; set; } = new List<Student>();
     }
 }

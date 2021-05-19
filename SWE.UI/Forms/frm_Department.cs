@@ -22,12 +22,12 @@ namespace SWE.UI.Forms
         }
 
         
-        void Updated(int _IdDepartment, string _NameDepartment, int IdFacultie,int? IdManager, bool _IsDelete)
+        void Updated(int _IdDepartment, string _NameDepartment, int _IdFacultie,int? _IdManager, bool _IsDelete)
         {
             using (var work = new UnitOfWork(new SWEContext()))
             {
-                var facultie = work.Facultie.GetId(IdFacultie);
-                var professor = (IdManager == null)?null:work.Professor.GetId(IdManager);
+                var facultie = work.Facultie.GetId(_IdFacultie);
+                var professor = (_IdManager == null)?null:work.Professor.GetId(_IdManager);
                 work.Department.Update(new Department { Id = _IdDepartment, Name = _NameDepartment,
                     Facultie = facultie,ProfessorManage = professor, IsDelete = _IsDelete });
 
@@ -50,12 +50,12 @@ namespace SWE.UI.Forms
             }
 
         }
-        void Add(string _NameDepartment, int IdFacultie, int? IdManager)
+        void Add(string _NameDepartment, int _IdFacultie, int? _IdManager)
         {
             using (var work = new UnitOfWork(new SWEContext()))
             {
-                var facultie = work.Facultie.GetId(IdFacultie);
-                var professor = (IdManager == null) ? null : work.Professor.GetId(IdManager);
+                var facultie = work.Facultie.GetId(_IdFacultie);
+                var professor = (_IdManager == null) ? null : work.Professor.GetId(_IdManager);
                 work.Department.Add(new Department { Name = _NameDepartment, Facultie = facultie,ProfessorManage = professor });
 
                 work.Commet();
@@ -66,39 +66,32 @@ namespace SWE.UI.Forms
         {
             using (var work = new UnitOfWork(new SWEContext()))
             {
-                var GetFuc = work.Facultie.AllNotDeleted().Select(f => new { f.Id, f.Name}).ToList();
-                var GetProf = work.Professor.AllNotDeleted().Select(f => new { f.Id, f.Name }).ToList();
-                var GetDepartment = work.Department.AllNotDeleted()
-                    .Select(f => new { f.Id, f.Name, NameFuc = GetFuc.Find(x=>x.Id== f.FacultieId).Name
-                        ,NameProf = GetProf.Find(x => x.Id == f.ProfessorManageId)}).ToList();
+                var getListFacultie = work.Facultie.AllNotDeleted().Select(f => new { f.Id, f.Name}).ToList();
+                var getListProfessor = work.Professor.AllNotDeleted().Select(f => new { f.Id, f.Name }).ToList();
+                var getDepartment = work.Department.AllNotDeleted()
+                    .Select(f => new {
+                        f.Id,
+                        f.Name,
+                        NameFacultie = (f.FacultieId == null) ? null : f.Facultie.Name,
+                        NameProfessor = (f.ProfessorManageId == null) ? null : f.ProfessorManage.Name
+                    }).ToList();
 
-                //var JoinDepartment = from dep in GetDepartment
-                //                     join fuc in GetFuc on dep.FacultieId equals fuc.Id
-                //                     join prof in GetProf on dep.ProfessorManageId equals prof.Id
-                //                     select new
-                //                     {
-                //                         dep.Id,
-                //                         dep.Name,
-                //                         NameFuc = fuc.Name,
-                //                         ProfName = prof.Name
-                //                     };
-
-                if (GetFuc.Count > 0)
+                if (getListFacultie.Count > 0)
                 {
-                    cm_Faculties.DataSource = GetFuc;
+                    cm_Faculties.DataSource = getListFacultie;
                     cm_Faculties.DisplayMember = "Name";
                     cm_Faculties.ValueMember = "Id";
                     cm_Faculties.SelectedIndex = -1;
                 }
-                if (GetProf.Count > 0)
+                if (getListProfessor.Count > 0)
                 {
-                    cm_Professor.DataSource = GetProf;
+                    cm_Professor.DataSource = getListProfessor;
                     cm_Professor.DisplayMember = "Name";
                     cm_Professor.ValueMember = "Id";
                     cm_Professor.SelectedIndex = -1;
                 }
 
-                GvResult.DataSource = GetDepartment.ToList();
+                GvResult.DataSource = getDepartment.ToList();
             }
             txt_Id.Clear();
             txt_Name.Clear();
@@ -108,31 +101,31 @@ namespace SWE.UI.Forms
             using (var work = new UnitOfWork(new SWEContext()))
             {
 
-                var GetFuc = work.Facultie.AllNotDeleted().Select(f => new { f.Id, f.Name }).ToList();
-                var GetProf = work.Professor.AllNotDeleted().Select(f => new { f.Id, f.Name }).ToList();
-                var GetDepartment = work.Department.GetByName(_Name)
+                var getListFacultie = work.Facultie.AllNotDeleted().Select(f => new { f.Id, f.Name }).ToList();
+                var getListProfessor = work.Professor.AllNotDeleted().Select(f => new { f.Id, f.Name }).ToList();
+                var getDepartment = work.Department.GetByName(_Name)
                     .Select(f => new {
                         f.Id,
                         f.Name,
-                        NameFuc = GetFuc.Find(x => x.Id == f.FacultieId).Name,
-                        NameProf = GetProf.Find(x => x.Id == f.ProfessorManageId)
+                        NameFuc = f.Facultie.Name,
+                        NameProf = (f.ProfessorManageId == null) ? null : f.ProfessorManage.Name
                     }).ToList();
 
-                if (GetFuc.Count > 0)
+                if (getListFacultie.Count > 0)
                 {
-                    cm_Faculties.DataSource = GetFuc;
+                    cm_Faculties.DataSource = getListFacultie;
                     cm_Faculties.DisplayMember = "Name";
                     cm_Faculties.ValueMember = "Id";
                     cm_Faculties.SelectedIndex = -1;
                 }
-                if (GetProf.Count > 0)
+                if (getListProfessor.Count > 0)
                 {
-                    cm_Professor.DataSource = GetProf;
+                    cm_Professor.DataSource = getListProfessor;
                     cm_Professor.DisplayMember = "Name";
                     cm_Professor.ValueMember = "Id";
                     cm_Professor.SelectedIndex = -1;
                 }
-                GvResult.DataSource = GetDepartment.ToList();
+                GvResult.DataSource = getDepartment.ToList();
             }
 
         }
@@ -153,16 +146,16 @@ namespace SWE.UI.Forms
             }
             if (GvResult.Columns[e.ColumnIndex].Name == "Delete")
             {
-                var NameDepartment = GvResult.Rows[e.RowIndex].Cells["Name"].Value.ToString();
-                var IdDepartment = GvResult.Rows[e.RowIndex].Cells["Id"].Value.ToString();
+                var nameDepartment = GvResult.Rows[e.RowIndex].Cells["Name"].Value.ToString();
+                var idDepartment = GvResult.Rows[e.RowIndex].Cells["Id"].Value.ToString();
                 
-                var msg = MessageBox.Show($"هل انت متأكد بأنك تريد حذف ... {NameDepartment}", "رسالة حذف"
+                var msg = MessageBox.Show($"هل انت متأكد بأنك تريد حذف ... {nameDepartment}", "رسالة حذف"
                     , MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (msg == DialogResult.Yes)
                 {
                     //For Delete Entities (IdDepartment,NameDepartment,IdFaculties,IsDeleted = true) for visable from my project Not my database
-                    Deleted(Convert.ToInt32(IdDepartment), NameDepartment, true);
+                    Deleted(Convert.ToInt32(idDepartment), nameDepartment, true);
                     //For Get All Data and Clear Data
                     get();
                 }

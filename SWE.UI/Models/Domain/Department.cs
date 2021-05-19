@@ -12,12 +12,15 @@ namespace SWE.UI.Models.Domain
         {
             Professores = new List<Professor>();
             Courses = new List<Course>();
+            Facultie = new Facultie();
+            
         }
         public int Id { get; set; }
         public string Name { get; set; }
         public bool IsDelete { get; set; }
+        public int? FacultieId { get; set; }
         public Facultie Facultie { get; set; }
-        public int ProfessorManageId { get; set; }
+        public int? ProfessorManageId { get; set; }
         public Professor ProfessorManage { get; set; }
         public List<Professor> Professores { get; set; }
         public List<Course> Courses { get; set; }

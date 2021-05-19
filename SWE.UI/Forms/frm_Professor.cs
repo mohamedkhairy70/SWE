@@ -1,4 +1,5 @@
-﻿using SWE.UI.interfaces;
+﻿using SWE.UI.ImplementForms;
+using SWE.UI.interfaces;
 using SWE.UI.Models;
 using SWE.UI.Models.Domain;
 using System;
@@ -15,59 +16,13 @@ namespace SWE.UI.Forms
 {
     public partial class frm_Professor : Form
     {
-
+        ImplementProfessor implementProfessor;
         public frm_Professor()
         {
             InitializeComponent();
+            implementProfessor = new ImplementProfessor();
         }
 
-
-        void Updated(int _Idprofessor, string _NameDepartment, int _IdDepartment, int? _IdManager, bool _IsDelete)
-        {
-            using (var work = new UnitOfWork(new SWEContext()))
-            {
-                var department = work.Department.GetId(_IdDepartment);
-                var professor = (_IdManager == null) ? null : work.Professor.GetId(_IdManager);
-                work.Professor.Update(new Professor
-                {
-                    Id = _Idprofessor,
-                    Name = _NameDepartment,
-                    Department = department,
-                    ProfessorManage = professor,
-                    IsDelete = _IsDelete
-                });
-
-                work.Commet();
-            }
-
-        }
-        void Deleted(int _IdDepartment, string _NameProfessor, bool _IsDelete)
-        {
-            using (var work = new UnitOfWork(new SWEContext()))
-            {
-                work.Professor.Update(new Professor
-                {
-                    Id = _IdDepartment,
-                    Name = _NameProfessor,
-                    IsDelete = _IsDelete
-                });
-
-                work.Commet();
-            }
-
-        }
-        void Add(string _NameProfessor, int _IdDepartment, int? _IdManager)
-        {
-            using (var work = new UnitOfWork(new SWEContext()))
-            {
-                var department = work.Department.GetId(_IdDepartment);
-                var professor = (_IdManager == null) ? null : work.Professor.GetId(_IdManager);
-                work.Professor.Add(new Professor { Name = _NameProfessor, Department = department, ProfessorManage = professor });
-
-                work.Commet();
-            }
-
-        }
         void get()
         {
             using (var work = new UnitOfWork(new SWEContext()))
@@ -117,21 +72,6 @@ namespace SWE.UI.Forms
                         NameProfManage = (f.ProfessorManageId == null) ? null : f.ProfessorManage.Name
                     }).ToList(); ;
                 GvResult.DataSource = getListProfessor;
-
-                if (getListDepartment.Count > 0)
-                {
-                    cm_Department.DataSource = getListDepartment;
-                    cm_Department.DisplayMember = "Name";
-                    cm_Department.ValueMember = "Id";
-                    cm_Department.SelectedIndex = -1;
-                }
-                if (getListProfessorManage.Count > 0)
-                {
-                    cm_ProfessorManage.DataSource = getListProfessorManage;
-                    cm_ProfessorManage.DisplayMember = "Name";
-                    cm_ProfessorManage.ValueMember = "Id";
-                    cm_ProfessorManage.SelectedIndex = -1;
-                }
             }
 
         }
@@ -160,7 +100,7 @@ namespace SWE.UI.Forms
                 if (msg == DialogResult.Yes)
                 {
                     //For Update Entities (Id,Name,IsDeleted = true) for visable from my project Not my database
-                    Deleted(Convert.ToInt32(idFaculties), nameFaculties, true);
+                    implementProfessor.Deleted(Convert.ToInt32(idFaculties), nameFaculties, true);
                     //For Get All Data and Clear Data
                     get();
                 }
@@ -178,7 +118,7 @@ namespace SWE.UI.Forms
                     profManage = Convert.ToInt32(cm_ProfessorManage.SelectedValue);
                 }
                 //For Add Entities (IdDepartment auto No Bas,NameDepartment,IdFacultie)
-                Add(txt_Name.Text, Convert.ToInt32(cm_Department.SelectedValue), profManage);
+                implementProfessor.Add(txt_Name.Text, Convert.ToInt32(cm_Department.SelectedValue), profManage);
                 //For Get All Data and Clear Data
                 get();
             }
@@ -191,7 +131,7 @@ namespace SWE.UI.Forms
                     profManage = Convert.ToInt32(cm_ProfessorManage.SelectedValue);
                 }
                 //For Update Entities (IdDepartment,NameDepartment,IdFacultie,IsDeleted)
-                Updated(Convert.ToInt32(txt_Id.Text), txt_Name.Text, Convert.ToInt32(cm_Department.SelectedValue), profManage, false);
+                implementProfessor.Updated(Convert.ToInt32(txt_Id.Text), txt_Name.Text, Convert.ToInt32(cm_Department.SelectedValue), profManage, false);
                 //For Get All Data and Clear Data
                 get();
             }

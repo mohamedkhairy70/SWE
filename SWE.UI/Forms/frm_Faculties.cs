@@ -1,47 +1,23 @@
-﻿using SWE.UI.interfaces;
+﻿using SWE.UI.ImplementForms;
 using SWE.UI.Models;
-using SWE.UI.Models.Domain;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SWE.UI.Forms
 {
     public partial class frm_Faculties : Form
     {
-
+        ImplementFaculties implementFaculties;
         public frm_Faculties()
         {
             InitializeComponent();
+            implementFaculties = new ImplementFaculties();
         }
 
         
-        void Updated(int _Id, string _Name,bool _IsDelete)
-        {
-            using (var work = new UnitOfWork(new SWEContext()))
-            {
-                work.Facultie.Update(new Facultie { Id = _Id, Name = _Name,IsDelete = _IsDelete });
-
-                work.Commet();
-            }
-
-        }
-        void Add(string _Name)
-        {
-            using (var work = new UnitOfWork(new SWEContext()))
-            {
-                work.Facultie.Add(new Facultie { Name = _Name });
-
-                work.Commet();
-            }
-            
-        }
+        
         void get()
         {
             using (var work = new UnitOfWork(new SWEContext()))
@@ -86,7 +62,7 @@ namespace SWE.UI.Forms
                 if (msg == DialogResult.Yes)
                 {
                     //For Update Entities (Id,Name,IsDeleted = true) for visable from my project Not my database
-                    Updated(Convert.ToInt32(IdFaculties), NameFaculties, true);
+                    implementFaculties.Updated(Convert.ToInt32(IdFaculties), NameFaculties, true);
                     //For Get All Data and Clear Data
                     get();
                 }
@@ -98,14 +74,14 @@ namespace SWE.UI.Forms
             if(string.IsNullOrWhiteSpace(txt_Id.Text))
             {
                 //For Add Entities (Id auto No Bas,Name)
-                Add(txt_Name.Text);
+                implementFaculties.Add(txt_Name.Text);
                 //For Get All Data and Clear Data
                 get();
             }
             else
             {
                 //For Update Entities (Id,Name,IsDeleted)
-                Updated(Convert.ToInt32(txt_Id.Text), txt_Name.Text,false);
+                implementFaculties.Updated(Convert.ToInt32(txt_Id.Text), txt_Name.Text,false);
                 //For Get All Data and Clear Data
                 get();
             }

@@ -14,11 +14,11 @@ namespace SWE.UI.Repositories.ProfessorRepository
             _context = context;
         }
 
-        public IEnumerable<Professor> AllNotDeleted() => _context.Professores.Include(f=>f.Department).Where(f => !f.IsDelete);
+        public IEnumerable<Professor> AllNotDeleted() => _context.Professores.Where(f => !f.IsDelete);
 
         public IEnumerable<Professor> GetByName(string _Name)
         {
-            return _context.Professores.Include(f => f.Department)
+            return _context.Professores
                 .Where(f => EF.Functions.Contains(f.Name, _Name) && !f.IsDelete);
         }
     }

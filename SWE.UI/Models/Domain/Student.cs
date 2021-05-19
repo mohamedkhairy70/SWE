@@ -17,5 +17,6 @@ namespace SWE.UI.Models.Domain
         public bool IsDelete { get; set; }
         public DateTime BDate { get; set; }
         public List<Course> Courses { get; set; } = new List<Course>();
+        public StudentLog StudentLog { get; set; }
     }
 }

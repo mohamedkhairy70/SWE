@@ -48,6 +48,10 @@ namespace SWE.UI.Models
                 .HasOne(s => s.ProfessorManage)
                 .WithOne(b => b.DepartmentProfessor);
 
+            modelBuilder.Entity<Student>()
+                .HasOne(s => s.StudentLog)
+                .WithOne(b => b.Student);
+
             modelBuilder.Entity<Professor>()
                 .HasOne(s => s.ProfessorManage)
                 .WithOne();

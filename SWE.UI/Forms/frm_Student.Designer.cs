@@ -1,7 +1,7 @@
 ﻿
 namespace SWE.UI.Forms
 {
-    partial class frm_Department
+    partial class frm_Student
     {
         /// <summary>
         /// Required designer variable.
@@ -30,10 +30,6 @@ namespace SWE.UI.Forms
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cm_Professor = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cm_Faculties = new System.Windows.Forms.ComboBox();
             this.button3 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.txt_Id = new System.Windows.Forms.TextBox();
@@ -43,10 +39,13 @@ namespace SWE.UI.Forms
             this.txt_Name = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.GvResult = new System.Windows.Forms.DataGridView();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NameFacultie = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NameProfessor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NameDepartment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Edit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Delete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel1.SuspendLayout();
@@ -57,9 +56,9 @@ namespace SWE.UI.Forms
             // panel1
             // 
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.cm_Professor);
+            this.panel1.Controls.Add(this.textBox2);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.cm_Faculties);
+            this.panel1.Controls.Add(this.textBox1);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.txt_Id);
@@ -70,46 +69,12 @@ namespace SWE.UI.Forms
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(899, 225);
+            this.panel1.Size = new System.Drawing.Size(867, 202);
             this.panel1.TabIndex = 0;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(546, 112);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(71, 19);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "رئيس القسم";
-            // 
-            // cm_Professor
-            // 
-            this.cm_Professor.FormattingEnabled = true;
-            this.cm_Professor.Location = new System.Drawing.Point(279, 109);
-            this.cm_Professor.Name = "cm_Professor";
-            this.cm_Professor.Size = new System.Drawing.Size(261, 27);
-            this.cm_Professor.TabIndex = 9;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(546, 79);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 19);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "الكلية";
-            // 
-            // cm_Faculties
-            // 
-            this.cm_Faculties.FormattingEnabled = true;
-            this.cm_Faculties.Location = new System.Drawing.Point(279, 76);
-            this.cm_Faculties.Name = "cm_Faculties";
-            this.cm_Faculties.Size = new System.Drawing.Size(261, 27);
-            this.cm_Faculties.TabIndex = 7;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(234, 165);
+            this.button3.Location = new System.Drawing.Point(260, 152);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(93, 44);
             this.button3.TabIndex = 6;
@@ -120,15 +85,15 @@ namespace SWE.UI.Forms
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(546, 15);
+            this.label2.Location = new System.Drawing.Point(553, 24);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(74, 19);
+            this.label2.Size = new System.Drawing.Size(79, 19);
             this.label2.TabIndex = 5;
-            this.label2.Text = "معرف القسم";
+            this.label2.Text = "معرف الطالب";
             // 
             // txt_Id
             // 
-            this.txt_Id.Location = new System.Drawing.Point(279, 12);
+            this.txt_Id.Location = new System.Drawing.Point(286, 21);
             this.txt_Id.Name = "txt_Id";
             this.txt_Id.ReadOnly = true;
             this.txt_Id.Size = new System.Drawing.Size(261, 26);
@@ -137,15 +102,15 @@ namespace SWE.UI.Forms
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(546, 47);
+            this.label1.Location = new System.Drawing.Point(553, 56);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(62, 19);
+            this.label1.Size = new System.Drawing.Size(67, 19);
             this.label1.TabIndex = 3;
-            this.label1.Text = "اسم القسم";
+            this.label1.Text = "اسم الطالب";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(363, 165);
+            this.button2.Location = new System.Drawing.Point(389, 152);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(93, 44);
             this.button2.TabIndex = 2;
@@ -155,7 +120,7 @@ namespace SWE.UI.Forms
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(497, 165);
+            this.button1.Location = new System.Drawing.Point(523, 152);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(93, 44);
             this.button1.TabIndex = 1;
@@ -165,7 +130,7 @@ namespace SWE.UI.Forms
             // 
             // txt_Name
             // 
-            this.txt_Name.Location = new System.Drawing.Point(279, 44);
+            this.txt_Name.Location = new System.Drawing.Point(286, 53);
             this.txt_Name.Name = "txt_Name";
             this.txt_Name.Size = new System.Drawing.Size(261, 26);
             this.txt_Name.TabIndex = 0;
@@ -174,9 +139,9 @@ namespace SWE.UI.Forms
             // 
             this.panel2.Controls.Add(this.GvResult);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 225);
+            this.panel2.Location = new System.Drawing.Point(0, 202);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(899, 353);
+            this.panel2.Size = new System.Drawing.Size(867, 317);
             this.panel2.TabIndex = 1;
             // 
             // GvResult
@@ -188,8 +153,7 @@ namespace SWE.UI.Forms
             this.GvResult.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
             this.Name,
-            this.NameFacultie,
-            this.NameProfessor,
+            this.NameDepartment,
             this.Edit,
             this.Delete});
             this.GvResult.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -197,37 +161,63 @@ namespace SWE.UI.Forms
             this.GvResult.Name = "GvResult";
             this.GvResult.ReadOnly = true;
             this.GvResult.RowTemplate.Height = 25;
-            this.GvResult.Size = new System.Drawing.Size(899, 353);
+            this.GvResult.Size = new System.Drawing.Size(867, 317);
             this.GvResult.TabIndex = 0;
             this.GvResult.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(553, 88);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(85, 19);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "User Name";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(286, 85);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(261, 26);
+            this.textBox1.TabIndex = 7;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(553, 120);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(72, 19);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Password";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(286, 117);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.PasswordChar = '*';
+            this.textBox2.Size = new System.Drawing.Size(261, 26);
+            this.textBox2.TabIndex = 9;
             // 
             // Id
             // 
             this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "معرف القسم";
+            this.Id.HeaderText = "معرف الطالب";
             this.Id.Name = "Id";
             this.Id.ReadOnly = true;
             // 
             // Name
             // 
             this.Name.DataPropertyName = "Name";
-            this.Name.HeaderText = "اسم  القسم";
+            this.Name.HeaderText = "اسم الطالب";
             this.Name.Name = "Name";
             this.Name.ReadOnly = true;
             // 
-            // NameFacultie
+            // NameDepartment
             // 
-            this.NameFacultie.DataPropertyName = "NameFacultie";
-            this.NameFacultie.HeaderText = "اسم الكلية";
-            this.NameFacultie.Name = "NameFacultie";
-            this.NameFacultie.ReadOnly = true;
-            // 
-            // NameProfessor
-            // 
-            this.NameProfessor.DataPropertyName = "NameProfessor";
-            this.NameProfessor.HeaderText = "رئيس القسم";
-            this.NameProfessor.Name = "NameProfessor";
-            this.NameProfessor.ReadOnly = true;
+            this.NameDepartment.DataPropertyName = "NameDepartment";
+            this.NameDepartment.HeaderText = "User Name";
+            this.NameDepartment.Name = "NameDepartment";
+            this.NameDepartment.ReadOnly = true;
             // 
             // Edit
             // 
@@ -251,17 +241,17 @@ namespace SWE.UI.Forms
             this.Delete.ToolTipText = "الحذف";
             this.Delete.UseColumnTextForButtonValue = true;
             // 
-            // frm_Department
+            // frm_Student
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(899, 578);
+            this.ClientSize = new System.Drawing.Size(867, 519);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
-            this.Text = "اقسام الكليات";
+            this.Text = "الكليات";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -283,14 +273,13 @@ namespace SWE.UI.Forms
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txt_Id;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox cm_Faculties;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox cm_Professor;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NameFacultie;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NameProfessor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NameDepartment;
         private System.Windows.Forms.DataGridViewButtonColumn Edit;
         private System.Windows.Forms.DataGridViewButtonColumn Delete;
     }

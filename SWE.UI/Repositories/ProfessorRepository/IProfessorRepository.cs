@@ -10,7 +10,7 @@ namespace SWE.UI.Repositories.ProfessorRepository
 {
     public interface IProfessorRepository : IRepository<Professor>
     {
-        IEnumerable<Professor> AllNotDeleted();
-        IEnumerable<Professor> GetByName(string _Name);
+        Task<IEnumerable<Professor>> AllNotDeleted();
+        Task<IEnumerable<Professor>> GetByName(string _Name);
     }
 }

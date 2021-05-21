@@ -10,8 +10,8 @@ namespace SWE.UI.Repositories.DepartmentRepository
 {
     public interface IDepartmentRepository : IRepository<Department>
     {
-        IEnumerable<Department> AllNotDeleted();
-        IEnumerable<Department> GetByName(string _Name);
-        IEnumerable<Department> GetByFaculties(string _Name);
+        Task<IEnumerable<Department>> AllNotDeleted();
+        Task<IEnumerable<Department>> GetByName(string _Name);
+        Task<IEnumerable<Department>> GetByFaculties(string _Name);
     }
 }

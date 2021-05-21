@@ -23,33 +23,37 @@ namespace SWE.UI.Forms
             implementProfessor = new ImplementProfessor();
         }
 
-        void get()
+        async void get()
         {
             using (var work = new UnitOfWork(new SWEContext()))
             {
-                var getListDepartment = work.Department.AllNotDeleted().Select(d => new { d.Id, d.Name }).ToList();
-                var getListProfessorManage = work.Professor.AllNotDeleted().Select(d => new { d.Id, d.Name }).ToList();
-                var getListProfessor = work.Professor.AllNotDeleted()
-                    .Select(f => new {
-                        f.Id,
-                        f.Name,
-                        NameDepartment = f.DepartmentsId != null ? f.Department.Name:null ,
-                        NameProfessorfManage = f.ProfessorManageId != null ? f.ProfessorManage.Name:null
-                    }).ToList();
+                var getAwaitListDepartment = await work.Department.AllNotDeleted();
+                var getAwaitListProfessorManage = await work.Professor.AllNotDeleted();
+                var getAwaitListProfessor = await work.Professor.AllNotDeleted();
+                    
+
+                var DepartmentResult = getAwaitListDepartment.Select(d => new { d.Id, d.Name }).ToList();
+                var ProfessorManageResult = getAwaitListProfessorManage.Select(d => new { d.Id, d.Name }).ToList();
+                var ProfessorResult = getAwaitListProfessor.Select(f => new {
+                                        f.Id,
+                                        f.Name,
+                                        NameDepartment = f.DepartmentsId != null ? f.Department.Name : null,
+                                        NameProfessorfManage = f.ProfessorManageId != null ? f.ProfessorManage.Name : null
+                                    }).ToList();
 
 
-                GvResult.DataSource = getListProfessor;
+                GvResult.DataSource = ProfessorResult;
 
-                if (getListDepartment.Count > 0)
+                if (DepartmentResult.Count > 0)
                 {
-                    cm_Department.DataSource = getListDepartment;
+                    cm_Department.DataSource = DepartmentResult;
                     cm_Department.DisplayMember = "Name";
                     cm_Department.ValueMember = "Id";
                     cm_Department.SelectedIndex = -1;
                 }
-                if (getListProfessorManage.Count > 0)
+                if (ProfessorManageResult.Count > 0)
                 {
-                    cm_ProfessorManage.DataSource = getListProfessorManage;
+                    cm_ProfessorManage.DataSource = ProfessorManageResult;
                     cm_ProfessorManage.DisplayMember = "Name";
                     cm_ProfessorManage.ValueMember = "Id";
                     cm_ProfessorManage.SelectedIndex = -1;
@@ -58,20 +62,21 @@ namespace SWE.UI.Forms
             txt_Id.Clear();
             txt_Name.Clear();
         }
-        void getByName(string _Name)
+        async void getByName(string _Name)
         {
             using (var work = new UnitOfWork(new SWEContext()))
             {
-                var getListDepartment = work.Department.AllNotDeleted().Select(d => new { d.Id, d.Name }).ToList();
-                var getListProfessorManage = work.Professor.AllNotDeleted().Select(d => new { d.Id, d.Name }).ToList();
-                var getListProfessor = work.Professor.GetByName(_Name)
-                    .Select(f => new {
-                        f.Id,
-                        f.Name,
-                        NameDep = f.Department.Name,
-                        NameProfManage = (f.ProfessorManageId == null) ? null : f.ProfessorManage.Name
-                    }).ToList(); ;
-                GvResult.DataSource = getListProfessor;
+
+                var getAwaitListProfessor = await work.Professor.GetByName(_Name);
+                var ProfessorResult = getAwaitListProfessor.Select(f => new {
+                    f.Id,
+                    f.Name,
+                    NameDepartment = f.DepartmentsId != null ? f.Department.Name : null,
+                    NameProfessorfManage = f.ProfessorManageId != null ? f.ProfessorManage.Name : null
+                }).ToList();
+
+
+                GvResult.DataSource = ProfessorResult;
             }
 
         }
@@ -83,7 +88,7 @@ namespace SWE.UI.Forms
             get();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (GvResult.Columns[e.ColumnIndex].Name == "Edit")
             {
@@ -100,14 +105,14 @@ namespace SWE.UI.Forms
                 if (msg == DialogResult.Yes)
                 {
                     //For Update Entities (Id,Name,IsDeleted = true) for visable from my project Not my database
-                    implementProfessor.Deleted(Convert.ToInt32(idFaculties), nameFaculties, true);
+                    await implementProfessor.Deleted(Convert.ToInt32(idFaculties), nameFaculties, true);
                     //For Get All Data and Clear Data
                     get();
                 }
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private async void button2_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txt_Id.Text) && cm_Department.SelectedIndex >= 0)
             {
@@ -118,7 +123,7 @@ namespace SWE.UI.Forms
                     profManage = Convert.ToInt32(cm_ProfessorManage.SelectedValue);
                 }
                 //For Add Entities (IdDepartment auto No Bas,NameDepartment,IdFacultie)
-                implementProfessor.Add(txt_Name.Text, Convert.ToInt32(cm_Department.SelectedValue), profManage);
+                await implementProfessor.Add(txt_Name.Text, Convert.ToInt32(cm_Department.SelectedValue), profManage);
                 //For Get All Data and Clear Data
                 get();
             }
@@ -131,7 +136,7 @@ namespace SWE.UI.Forms
                     profManage = Convert.ToInt32(cm_ProfessorManage.SelectedValue);
                 }
                 //For Update Entities (IdDepartment,NameDepartment,IdFacultie,IsDeleted)
-                implementProfessor.Updated(Convert.ToInt32(txt_Id.Text), txt_Name.Text, Convert.ToInt32(cm_Department.SelectedValue), profManage, false);
+                await implementProfessor.Updated(Convert.ToInt32(txt_Id.Text), txt_Name.Text, Convert.ToInt32(cm_Department.SelectedValue), profManage, false);
                 //For Get All Data and Clear Data
                 get();
             }

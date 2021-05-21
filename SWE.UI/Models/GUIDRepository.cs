@@ -20,22 +20,23 @@ namespace SWE.UI.Models
             Table = context.Set<T>();
             Context = context;
         }
-        public void Add(T entity) => Table.Add(entity);
+        public async Task Add(T entity) => await Table.AddAsync(entity);
 
-        public void Add(IEnumerable<T> entities) => Table.AddRange(entities);
+        public async Task Add(IEnumerable<T> entities) => await Table.AddRangeAsync(entities);
 
-        public IEnumerable<T> All() => Table.AsNoTracking();
+        public async Task<IEnumerable<T>> All() => await Table.AsNoTracking().ToListAsync();
 
         public void Delete(T entity) => Table.Remove(entity);
 
         public void Delete(IEnumerable<T> entities) => Table.RemoveRange(entities);
 
-        public T GetId(int? Id) => Table.Find(Id);
+        public async Task<T> GetId(int? Id) => await Table.FindAsync(Id);
 
         public void Update(T entity) => Table.Update(entity);
 
         public void Update(IEnumerable<T> entities) => Table.UpdateRange(entities);
 
         public IQueryable<T> Where(Expression<Func<T, bool>> expression) => Table.Where<T>(expression);
+
     }
 }

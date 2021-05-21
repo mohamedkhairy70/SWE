@@ -27,7 +27,7 @@ namespace SWE.UI.Models
         public IStudentRepository Student { get; private set; }
         public IStudentLogRepository StudentLog { get; private set; }
 
-        public int Commet() => context.SaveChanges();
+        public async Task<int> Commet() => await context.SaveChangesAsync();
 
         public void Dispose() => context.Dispose();
     }

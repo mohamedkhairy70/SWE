@@ -3,6 +3,7 @@ using SWE.UI.Models.Domain;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace SWE.UI.Repositories.DepartmentRepository
 {
@@ -14,12 +15,19 @@ namespace SWE.UI.Repositories.DepartmentRepository
             _context = context;
         }
 
-        public IEnumerable<Department> AllNotDeleted() => _context.Departments.Where(f => !f.IsDelete);
-
-        public IEnumerable<Department> GetByName(string _Name) => _context.Departments.Where(f => EF.Functions.Contains(f.Name,_Name) && !f.IsDelete);
-        public IEnumerable<Department> GetByFaculties(string _Name)
+        public async Task<IEnumerable<Department>> AllNotDeleted()
         {
-            return _context.Departments.Where(f => EF.Functions.Contains(f.Facultie.Name, _Name) && !f.IsDelete);
+            return await _context.Departments.Where(f => !f.IsDelete).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Department>> GetByName(string _Name)
+        {
+            return await _context.Departments.Where(f => EF.Functions.Contains(f.Name, _Name) && !f.IsDelete).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Department>> GetByFaculties(string _Name)
+        {
+            return await _context.Departments.Where(f => EF.Functions.Contains(f.Facultie.Name, _Name) && !f.IsDelete).ToListAsync();
         }
     }
 }

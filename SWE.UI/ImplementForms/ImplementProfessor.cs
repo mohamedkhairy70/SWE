@@ -1,54 +1,79 @@
 ﻿using SWE.UI.Models;
 using SWE.UI.Models.Domain;
+using System.Threading.Tasks;
 
 namespace SWE.UI.ImplementForms
 {
     public class ImplementProfessor
     {
-        public void Updated(int _Idprofessor, string _NameDepartment, int _IdDepartment, int? _IdManager, bool _IsDelete)
+        private int resultCommet =0;
+
+        public async Task<bool> Updated(int _Idprofessor, string _NameDepartment, int _IdDepartment, int? _IdManager, bool _IsDelete)
         {
-            using (var work = new UnitOfWork(new SWEContext()))
+            try
             {
-                var department = work.Department.GetId(_IdDepartment);
-                var professor = (_IdManager == null) ? null : work.Professor.GetId(_IdManager);
-                work.Professor.Update(new Professor
+                using (var work = new UnitOfWork(new SWEContext()))
                 {
-                    Id = _Idprofessor,
-                    Name = _NameDepartment,
-                    Department = department,
-                    ProfessorManage = professor,
-                    IsDelete = _IsDelete
-                });
+                    var department = await work.Department.GetId(_IdDepartment);
+                    var professor = (_IdManager == null) ? null : await work.Professor.GetId(_IdManager);
+                    work.Professor.Update(new Professor
+                    {
+                        Id = _Idprofessor,
+                        Name = _NameDepartment,
+                        Department = department,
+                        ProfessorManage = professor,
+                        IsDelete = _IsDelete
+                    });
 
-                work.Commet();
+                    resultCommet = await work.Commet();
+                }
+                if (resultCommet == 1)
+                    return true;
+                else
+                    return false;
             }
-
+            catch { return false; }
         }
-        public void Deleted(int _IdDepartment, string _NameProfessor, bool _IsDelete)
+        public async Task<bool> Deleted(int _IdDepartment, string _NameProfessor, bool _IsDelete)
         {
-            using (var work = new UnitOfWork(new SWEContext()))
+            try
             {
-                work.Professor.Update(new Professor
+                using (var work = new UnitOfWork(new SWEContext()))
                 {
-                    Id = _IdDepartment,
-                    Name = _NameProfessor,
-                    IsDelete = _IsDelete
-                });
+                    work.Professor.Update(new Professor
+                    {
+                        Id = _IdDepartment,
+                        Name = _NameProfessor,
+                        IsDelete = _IsDelete
+                    });
 
-                work.Commet();
+                    await work.Commet();
+                }
+                if (resultCommet == 1)
+                    return true;
+                else
+                    return false;
             }
-
+            catch { return false; }
         }
-        public void Add(string _NameProfessor, int _IdDepartment, int? _IdManager)
+        public async Task<bool> Add(string _NameProfessor, int _IdDepartment, int? _IdManager)
         {
-            using (var work = new UnitOfWork(new SWEContext()))
+            try
             {
-                var department = work.Department.GetId(_IdDepartment);
-                var professor = (_IdManager == null) ? null : work.Professor.GetId(_IdManager);
-                work.Professor.Add(new Professor { Name = _NameProfessor, Department = department, ProfessorManage = professor });
+                using (var work = new UnitOfWork(new SWEContext()))
+                {
+                    var department = await work.Department.GetId(_IdDepartment);
+                    var professor = (_IdManager == null) ? null : await work.Professor.GetId(_IdManager);
+                    await work.Professor.Add(new Professor { Name = _NameProfessor, Department = department, ProfessorManage = professor });
 
-                work.Commet();
+                    await work.Commet();
+                }
+                if (resultCommet == 1)
+                    return true;
+                else
+                    return false;
             }
+            catch { return false; }
 
         }
     }

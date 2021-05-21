@@ -18,22 +18,24 @@ namespace SWE.UI.Forms
 
         
         
-        void get()
+        async void get()
         {
             using (var work = new UnitOfWork(new SWEContext()))
             {
-                var GetFuc = work.Facultie.AllNotDeleted().Select(f =>  new {f.Id,f.Name }).ToList();
-                GvResult.DataSource = GetFuc;
+                var GetAwaitFacultie = await work.Facultie.AllNotDeleted();
+                var FacultieResult = GetAwaitFacultie.Select(f => new { f.Id, f.Name }).ToList();
+                GvResult.DataSource = FacultieResult;
             }
             txt_Id.Clear();
             txt_Name.Clear();
         }
-        void getByName(string _Name)
+        async void getByName(string _Name)
         {
             using (var work = new UnitOfWork(new SWEContext()))
             {
-                var GetFuc = work.Facultie.GetByName(_Name).Select(f => new { f.Id, f.Name }).ToList();
-                GvResult.DataSource = GetFuc;
+                var GetAwaitFacultie = await work.Facultie.GetByName(_Name);
+                var FacultieResult = GetAwaitFacultie.Select(f => new { f.Id, f.Name }).ToList();
+                GvResult.DataSource = FacultieResult;
             }
 
         }
@@ -45,7 +47,7 @@ namespace SWE.UI.Forms
             get();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (GvResult.Columns[e.ColumnIndex].Name == "Edit")
             {
@@ -62,26 +64,26 @@ namespace SWE.UI.Forms
                 if (msg == DialogResult.Yes)
                 {
                     //For Update Entities (Id,Name,IsDeleted = true) for visable from my project Not my database
-                    implementFaculties.Updated(Convert.ToInt32(IdFaculties), NameFaculties, true);
+                    await implementFaculties.Updated(Convert.ToInt32(IdFaculties), NameFaculties, true);
                     //For Get All Data and Clear Data
                     get();
                 }
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private async void button2_Click(object sender, EventArgs e)
         {
             if(string.IsNullOrWhiteSpace(txt_Id.Text))
             {
                 //For Add Entities (Id auto No Bas,Name)
-                implementFaculties.Add(txt_Name.Text);
+                await implementFaculties.Add(txt_Name.Text);
                 //For Get All Data and Clear Data
                 get();
             }
             else
             {
                 //For Update Entities (Id,Name,IsDeleted)
-                implementFaculties.Updated(Convert.ToInt32(txt_Id.Text), txt_Name.Text,false);
+                await implementFaculties.Updated(Convert.ToInt32(txt_Id.Text), txt_Name.Text,false);
                 //For Get All Data and Clear Data
                 get();
             }

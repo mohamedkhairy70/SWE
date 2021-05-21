@@ -7,6 +7,6 @@ namespace SWE.UI.interfaces
     interface IUnitOfWork : IDisposable 
     {
         IFacultieRepository Facultie { get; }
-        int Commet();
+        Task<int> Commet();
     }
 }

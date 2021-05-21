@@ -3,6 +3,7 @@ using SWE.UI.Models.Domain;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace SWE.UI.Repositories.ProfessorRepository
 {
@@ -14,12 +15,12 @@ namespace SWE.UI.Repositories.ProfessorRepository
             _context = context;
         }
 
-        public IEnumerable<Professor> AllNotDeleted() => _context.Professores.Where(f => !f.IsDelete);
+        public async Task<IEnumerable<Professor>> AllNotDeleted() => await _context.Professores.Where(f => !f.IsDelete).ToListAsync();
 
-        public IEnumerable<Professor> GetByName(string _Name)
+        public async Task<IEnumerable<Professor>> GetByName(string _Name)
         {
-            return _context.Professores
-                .Where(f => EF.Functions.Contains(f.Name, _Name) && !f.IsDelete);
+            return await _context.Professores
+                .Where(f => EF.Functions.Contains(f.Name, _Name) && !f.IsDelete).ToListAsync();
         }
     }
 }

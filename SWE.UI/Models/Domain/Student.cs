@@ -19,8 +19,8 @@ namespace SWE.UI.Models.Domain
         [DataType(DataType.Date)]
         public DateTime BDate { get; set; }
         public List<Course> Courses { get; set; } = new List<Course>();
-        //[ForeignKey("StudentLog")]
-        //public string StudentLogUserName { get; set; }
+        [ForeignKey("StudentLog")]
+        public string StudentLogUserName { get; set; }
         public StudentLog StudentLog { get; set; }
     }
 }

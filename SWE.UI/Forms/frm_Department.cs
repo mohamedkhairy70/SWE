@@ -21,6 +21,8 @@ namespace SWE.UI.Forms
             {
                 var getawaitListFacultie = await work.Facultie.AllNotDeleted();
                 var getawaitListProfessor = await work.Professor.AllNotDeleted();
+
+
                 var getawaitListDepartment = await work.Department.AllNotDeleted();
                 var DepartmentResult = getawaitListDepartment.Select(f => new
                                         {
@@ -29,6 +31,8 @@ namespace SWE.UI.Forms
                                             NameFacultie = (f.FacultieId == null) ? null : f.Facultie.Name,
                                             NameProfessor = (f.ProfessorManageId == null) ? null : f.ProfessorManage.Name
                                         }).ToList();
+
+
                 var ProfessorResult = getawaitListProfessor.Select(p => new { p.Id,p.Name }).ToList();
                 var FacultieResult = getawaitListFacultie.Select(p => new { p.Id, p.Name }).ToList();
 

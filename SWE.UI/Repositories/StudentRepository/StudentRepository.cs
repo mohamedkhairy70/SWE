@@ -15,11 +15,14 @@ namespace SWE.UI.Repositories.StudentRepository
             _context = context;
         }
 
-        public async Task<IEnumerable<Student>> AllNotDeleted() => await _context.Studentes.Where(f => !f.IsDelete).ToListAsync();
+        public async Task<IEnumerable<Student>> AllNotDeleted()
+        {
+            return await _context.Studentes.Where(f => !f.IsDelete).ToListAsync();
+        }
 
         public async Task<IEnumerable<Student>> GetByName(string _Name)
         {
-            return await _context.Studentes
+            return await _context.Studentes.Include(x => x.StudentLog)
                 .Where(f => EF.Functions.Contains(f.FullName, _Name) && !f.IsDelete).ToListAsync();
         }
     }

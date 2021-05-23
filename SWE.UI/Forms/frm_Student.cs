@@ -43,7 +43,7 @@ namespace SWE.UI.Forms
                                             u.Leval,
                                             u.Phone,
                                             u.BDate,
-                                            u.StudentLog.UserName
+                                            UserName = u.StudentLog.UserName
                                         }).ToList();
 
                 GvResult.DataSource = StudentResult;
@@ -75,7 +75,7 @@ namespace SWE.UI.Forms
                                             u.Leval,
                                             u.Phone,
                                             u.BDate,
-                                            u.StudentLog.UserName
+                                            UserName = u.StudentLog.UserName
                                         }).ToList();
 
                 GvResult.DataSource = StudentResult;

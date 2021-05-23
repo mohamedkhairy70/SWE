@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SWE.UI.Models;
 
 namespace SWE.UI.Migrations
 {
     [DbContext(typeof(SWEContext))]
-    partial class SWEContextModelSnapshot : ModelSnapshot
+    [Migration("20210523121239_EditContextRelationStudentandStudentLog")]
+    partial class EditContextRelationStudentandStudentLog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

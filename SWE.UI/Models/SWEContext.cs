@@ -50,9 +50,9 @@ namespace SWE.UI.Models
 
             modelBuilder.Entity<StudentLog>().HasKey(f => f.UserName);
 
-            //modelBuilder.Entity<Student>()
-            //    .HasOne(s => s.StudentLog)
-            //    .WithOne(b => b.Student);
+            modelBuilder.Entity<StudentLog>()
+                .HasOne(s => s.Student)
+                .WithOne(b => b.StudentLog);
 
             modelBuilder.Entity<Professor>()
                 .HasOne(s => s.ProfessorManage)

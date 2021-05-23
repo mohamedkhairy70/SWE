@@ -10,7 +10,7 @@ namespace SWE.UI.Repositories.StudentRepository
 {
     public interface IStudentRepository : IRepository<Student>
     {
-        IEnumerable<Student> AllNotDeleted();
-        IEnumerable<Student> GetByName(string _Name);
+        Task<IEnumerable<Student>> AllNotDeleted();
+        Task<IEnumerable<Student>> GetByName(string _Name);
     }
 }

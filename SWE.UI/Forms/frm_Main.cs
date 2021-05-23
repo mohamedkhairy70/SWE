@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SWE.UI.Forms
@@ -33,6 +26,13 @@ namespace SWE.UI.Forms
         {
             var frm = new frm_Professor();
             frm.ShowDialog();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            var frm = new frm_Student();
+            frm.ShowDialog();
+
         }
     }
 }

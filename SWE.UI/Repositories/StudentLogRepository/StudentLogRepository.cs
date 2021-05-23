@@ -1,4 +1,5 @@
-﻿using SWE.UI.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using SWE.UI.Models;
 using SWE.UI.Models.Domain;
 using System;
 using System.Collections.Generic;
@@ -17,47 +18,55 @@ namespace SWE.UI.Repositories.StudentLogRepository
             _context = context;
         }
 
-        public bool Register(StudentLog studentLog, string password)
+        public async Task<StudentLog> Register(StudentLog studentLog, string password)
         {
+            
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
 
             studentLog.PasswordHash = passwordHash;
             studentLog.PasswordSalt = passwordSalt;
-
-            return false;
+            await _context.StudentLog.AddAsync(studentLog);
+            return await _context.StudentLog.
+                FirstOrDefaultAsync(u => u.UserName == studentLog.UserName && u.PasswordHash == passwordHash);
         }
-
-
-        public StudentLog Login(string username, string password)
+        public async Task<StudentLog> Edit(StudentLog studentLog, string password)
         {
-            object[] parameters = { username, password };
-            //var spQuery = "LoginUser {0},{1}";
-            //var user = _repository.ExecuteQuerySingle(spQuery, parameters);
 
-            //byte[] userByte = user.PasswordSalt.ToArray();
+            byte[] passwordHash, passwordSalt;
+            CreatePasswordHash(password, out passwordHash, out passwordSalt);
 
-            //if (!VerifyPasswordHash(password, user.PasswordSalt, user.PasswordSalt))
-            //    return null;
+            studentLog.PasswordHash = passwordHash;
+            studentLog.PasswordSalt = passwordSalt;
+            _context.StudentLog.Update(studentLog);
 
-            return null;
+            return await _context.StudentLog.
+                FirstOrDefaultAsync(u => u.UserName == studentLog.UserName && u.PasswordHash == passwordHash);
         }
 
-        public bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        public async Task<StudentLog> Login(string username, string password)
         {
-            using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
-            {
-                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-                for (int i = 0; i < computedHash.Length; i++)
-                {
-                    if (computedHash[i] != passwordHash[i])
-                        return false;
-                }
-            }
-            return true;
+            byte[] passwordHash, passwordSalt;
+            CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            return await _context.StudentLog.
+                FirstOrDefaultAsync(u => u.UserName == username && u.PasswordHash == passwordHash);
         }
 
-        public void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        //public bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        //{
+        //    using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
+        //    {
+        //        var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+        //        for (int i = 0; i < computedHash.Length; i++)
+        //        {
+        //            if (computedHash[i] != passwordHash[i])
+        //                return false;
+        //        }
+        //    }
+        //    return true;
+        //}
+
+        void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
          {
             using (var hmac = new System.Security.Cryptography.HMACSHA512())
             {
@@ -66,10 +75,9 @@ namespace SWE.UI.Repositories.StudentLogRepository
             }
         }
 
-        public bool UserExsists(string username)
+        public async Task<bool> UserExsists(string username)
         {
-            object[] parameters = { username };
-            return false;
+            return await _context.StudentLog.AnyAsync(u => u.UserName == username);
         }
     }       
 }

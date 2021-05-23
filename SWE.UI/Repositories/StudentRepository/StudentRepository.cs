@@ -3,6 +3,7 @@ using SWE.UI.Models.Domain;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace SWE.UI.Repositories.StudentRepository
 {
@@ -14,12 +15,12 @@ namespace SWE.UI.Repositories.StudentRepository
             _context = context;
         }
 
-        public IEnumerable<Student> AllNotDeleted() => _context.Studentes.Where(f => !f.IsDelete);
+        public async Task<IEnumerable<Student>> AllNotDeleted() => await _context.Studentes.Where(f => !f.IsDelete).ToListAsync();
 
-        public IEnumerable<Student> GetByName(string _Name)
+        public async Task<IEnumerable<Student>> GetByName(string _Name)
         {
-            return _context.Studentes
-                .Where(f => EF.Functions.Contains(f.FullName, _Name) && !f.IsDelete);
+            return await _context.Studentes
+                .Where(f => EF.Functions.Contains(f.FullName, _Name) && !f.IsDelete).ToListAsync();
         }
     }
 }

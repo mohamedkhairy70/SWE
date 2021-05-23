@@ -1,13 +1,8 @@
-﻿using SWE.UI.interfaces;
-using SWE.UI.Models;
+﻿using SWE.UI.Models;
 using SWE.UI.Models.Domain;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -15,159 +10,170 @@ namespace SWE.UI.Forms
 {
     public partial class frm_Student : Form
     {
-
+        ImplementForms.ImplementStudent implementStudent;
         public frm_Student()
         {
             InitializeComponent();
+            implementStudent = new ImplementForms.ImplementStudent();
         }
+        void ClearData()
+        {
+            txt_FullName.Clear();
+            txt_Address.Clear();
+            txt_Leval.Clear();
+            txt_Phone.Clear();
+            BDate.Value = DateTime.Now;
+            txt_Id.Clear();
+            txt_UserName.Clear();
+            txt_Paassword.Clear();
+            txt_UserName.ReadOnly = false;
+        }
+        async void get()
+        {
+            using (var work = new UnitOfWork(new SWEContext()))
+            {
+                var getListStudent = await work.Student.AllNotDeleted();
 
+                var StudentResult = getListStudent.Select
+                                        (u => new
+                                        {
+                                            u.Id,
+                                            u.FullName,
+                                            u.Address,
+                                            u.Leval,
+                                            u.Phone,
+                                            u.BDate,
+                                            u.StudentLog.UserName
+                                        }).ToList();
 
-        //void Updated(int _Idprofessor, string _NameDepartment, int _IdDepartment, int? _IdManager, bool _IsDelete)
-        //{
-        //    using (var work = new UnitOfWork(new SWEContext()))
-        //    {
-        //        var department = work.Department.GetId(_IdDepartment);
-        //        var professor = (_IdManager == null) ? null : work.Professor.GetId(_IdManager);
-        //        work.Professor.Update(new Professor
-        //        {
-        //            Id = _Idprofessor,
-        //            Name = _NameDepartment,
-        //            Department = department,
-        //            ProfessorManage = professor,
-        //            IsDelete = _IsDelete
-        //        });
+                GvResult.DataSource = StudentResult;
 
-        //        work.Commet();
-        //    }
+            }
+            ClearData();
+        }
+        async Task<bool> checkUserNameIsExists(string userName)
+        {
+            using (var work = new UnitOfWork(new SWEContext()))
+            {
+                return await work.StudentLog.UserExsists(userName);
+            }
 
-        //}
-        //void Deleted(int _IdDepartment, string _NameProfessor, bool _IsDelete)
-        //{
-        //    using (var work = new UnitOfWork(new SWEContext()))
-        //    {
-        //        work.Professor.Update(new Professor
-        //        {
-        //            Id = _IdDepartment,
-        //            Name = _NameProfessor,
-        //            IsDelete = _IsDelete
-        //        });
+        }
+        async void getByName(string _Name)
+        {
+            using (var work = new UnitOfWork(new SWEContext()))
+            {
 
-        //        work.Commet();
-        //    }
+                var getListStudent = await work.Student.GetByName(_Name);
 
-        //}
-        //void Add(string _NameProfessor, int _IdDepartment, int? _IdManager)
-        //{
-        //    using (var work = new UnitOfWork(new SWEContext()))
-        //    {
-        //        var department = work.Department.GetId(_IdDepartment);
-        //        var professor = (_IdManager == null) ? null : work.Professor.GetId(_IdManager);
-        //        work.Professor.Add(new Professor { Name = _NameProfessor, Department = department, ProfessorManage = professor });
+                var StudentResult = getListStudent.Select
+                                        (u => new
+                                        {
+                                            u.Id,
+                                            u.FullName,
+                                            u.Address,
+                                            u.Leval,
+                                            u.Phone,
+                                            u.BDate,
+                                            u.StudentLog.UserName
+                                        }).ToList();
 
-        //        work.Commet();
-        //    }
+                GvResult.DataSource = StudentResult;
 
-        //}
-        //void get()
-        //{
-        //    using (var work = new UnitOfWork(new SWEContext()))
-        //    {
-        //        var getListDepartment = work.Department.AllNotDeleted().Select(d => new { d.Id, d.Name }).ToList();
-        //        var getListProfessorManage = work.Professor.AllNotDeleted().Select(d => new { d.Id, d.Name }).ToList();
-        //        var getListProfessor = work.Professor.AllNotDeleted()
-        //            .Select(f => new {
-        //                f.Id,
-        //                f.Name,
-        //                NameDepartment = f.DepartmentsId != null ? f.Department.Name:null ,
-        //                NameProfessorfManage = f.ProfessorManageId != null ? f.ProfessorManage.Name:null
-        //            }).ToList();
+            }
 
-
-        //        GvResult.DataSource = getListProfessor;
-
-        //    }
-        //    txt_Id.Clear();
-        //    txt_Name.Clear();
-        //}
-        //void getByName(string _Name)
-        //{
-        //    using (var work = new UnitOfWork(new SWEContext()))
-        //    {
-        //        var getListDepartment = work.Department.AllNotDeleted().Select(d => new { d.Id, d.Name }).ToList();
-        //        var getListProfessorManage = work.Professor.AllNotDeleted().Select(d => new { d.Id, d.Name }).ToList();
-        //        var getListProfessor = work.Professor.GetByName(_Name)
-        //            .Select(f => new {
-        //                f.Id,
-        //                f.Name,
-        //                NameDep = f.Department.Name,
-        //                NameProfManage = (f.ProfessorManageId == null) ? null : f.ProfessorManage.Name
-        //            }).ToList(); ;
-        //        GvResult.DataSource = getListProfessor;
-
-        //    }
-
-        //}
-
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             //For Get All Data and Clear Data
-            //get();
+            get();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (GvResult.Columns[e.ColumnIndex].Name == "Edit")
             {
-                txt_Id.Text = GvResult.Rows[e.RowIndex].Cells["Id"].Value.ToString();
-                txt_Name.Text = GvResult.Rows[e.RowIndex].Cells["Name"].Value.ToString();
+                var GVCellsOfRow = GvResult.Rows[e.RowIndex];
+                txt_Id.Text = GVCellsOfRow.Cells["Id"].Value.ToString();
+                txt_FullName.Text = GVCellsOfRow.Cells["FullName"].Value.ToString();
+                txt_Address.Text = GVCellsOfRow.Cells["Address"].Value.ToString();
+                txt_Leval.Text = GVCellsOfRow.Cells["Leval"].Value.ToString();
+                txt_Phone.Text = GVCellsOfRow.Cells["Phone"].Value.ToString();
+                BDate.Text = GVCellsOfRow.Cells["UBDate"].Value.ToString();
+                txt_UserName.Text = GVCellsOfRow.Cells["UserName"].Value.ToString();
+                txt_UserName.ReadOnly = true;
             }
             if (GvResult.Columns[e.ColumnIndex].Name == "Delete")
             {
-                var nameFaculties = GvResult.Rows[e.RowIndex].Cells["Name"].Value.ToString();
-                var idFaculties = GvResult.Rows[e.RowIndex].Cells["Id"].Value.ToString();
-                var msg = MessageBox.Show($"هل انت متأكد بأنك تريد حذف ... {nameFaculties}", "رسالة حذف"
+                var namestudent = GvResult.Rows[e.RowIndex].Cells["FullName"].Value.ToString();
+                var idstudent = GvResult.Rows[e.RowIndex].Cells["Id"].Value.ToString();
+                var msg = MessageBox.Show($"هل انت متأكد بأنك تريد حذف ... {namestudent}", "رسالة حذف"
                     , MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (msg == DialogResult.Yes)
                 {
                     //For Update Entities (Id,Name,IsDeleted = true) for visable from my project Not my database
-                    //Deleted(Convert.ToInt32(idFaculties), nameFaculties, true);
+                    await implementStudent.Deleted(Convert.ToInt32(idstudent), namestudent,true);
                     //For Get All Data and Clear Data
-                    //get();
+                    get();
                 }
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private async void button2_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txt_Id.Text))
             {
 
-                //For Add Entities (IdDepartment auto No Bas,NameDepartment,IdFacultie)
-                //Add(txt_Name.Text, 0, 0);
+                var studentLog = new StudentLog { UserName = txt_UserName.Text };
+                if (await checkUserNameIsExists(studentLog.UserName))
+                { MessageBox.Show("يوجد أسم مستخدم موجود بنفس الاسم برجاء اختيار اسم اخر"); return; }
+                
+                var student = new Student
+                {
+                    FullName = txt_FullName.Text,
+                    Address = txt_Address.Text,
+                    Leval = txt_Leval.Text,
+                    Phone = txt_Phone.Text,
+                    BDate = BDate.Value,
+                };
+                await implementStudent.Add(student,studentLog,txt_Paassword.Text);
                 //For Get All Data and Clear Data
-                //get();
+                get();
             }
             else
             {
-                //For Update Entities (IdDepartment,NameDepartment,IdFacultie,IsDeleted)
-                //Updated(Convert.ToInt32(txt_Id.Text), txt_Name.Text,0, 0, false);
-                //For Get All Data and Clear Data
-                //get();
+                var studentLog = new StudentLog { UserName = txt_UserName.Text };
+                if (await checkUserNameIsExists(studentLog.UserName))
+                {
+                    var student = new Student
+                    {
+                        Id = Convert.ToInt32(txt_Id.Text),
+                        FullName = txt_FullName.Text,
+                        Address = txt_Address.Text,
+                        Leval = txt_Leval.Text,
+                        Phone = txt_Phone.Text,
+                        BDate = BDate.Value
+                    };
+                    await implementStudent.Updated(student, studentLog, txt_Paassword.Text);
+                    //For Get All Data and Clear Data
+                    get();
+                }
             }
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             //For Get Data By Name and Clear Data
-           // getByName(txt_Name.Text);
+            if(!string.IsNullOrEmpty(txt_FullName.Text))
+                getByName(txt_FullName.Text);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             //For Get Data and Clear Data
-           // get();
+            get();
         }
     }
 }

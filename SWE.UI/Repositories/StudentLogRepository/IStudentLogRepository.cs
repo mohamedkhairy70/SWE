@@ -10,10 +10,10 @@ namespace SWE.UI.Repositories.StudentLogRepository
 {
     public interface IStudentLogRepository : IRepository<StudentLog>
     {
-        bool Register(StudentLog studentLog, string password);
-        StudentLog Login(string username, string password);
-        bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt);
-        void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt);
-        bool UserExsists(string username);
+        Task<StudentLog> Register(StudentLog studentLog, string password);
+        Task<StudentLog> Login(string username, string password);
+        Task<StudentLog> Edit(StudentLog studentLog, string password);
+        //bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt);
+        Task<bool> UserExsists(string username);
     }
 }

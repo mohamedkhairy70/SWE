@@ -30,22 +30,34 @@ namespace SWE.UI.Forms
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.BDate = new System.Windows.Forms.DateTimePicker();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txt_Address = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txt_Leval = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txt_Phone = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txt_Paassword = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txt_UserName = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.txt_Id = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.txt_Name = new System.Windows.Forms.TextBox();
+            this.txt_FullName = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.GvResult = new System.Windows.Forms.DataGridView();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NameDepartment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Leval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UBDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UserName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Edit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Delete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel1.SuspendLayout();
@@ -55,28 +67,133 @@ namespace SWE.UI.Forms
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.BDate);
+            this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.txt_Address);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.txt_Leval);
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.txt_Phone);
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.textBox2);
+            this.panel1.Controls.Add(this.txt_Paassword);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.txt_UserName);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.txt_Id);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.txt_Name);
+            this.panel1.Controls.Add(this.txt_FullName);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(867, 202);
+            this.panel1.Size = new System.Drawing.Size(1039, 243);
             this.panel1.TabIndex = 0;
+            // 
+            // BDate
+            // 
+            this.BDate.Location = new System.Drawing.Point(202, 79);
+            this.BDate.Name = "BDate";
+            this.BDate.Size = new System.Drawing.Size(196, 26);
+            this.BDate.TabIndex = 19;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(404, 83);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(74, 19);
+            this.label7.TabIndex = 18;
+            this.label7.Text = "تاريخ الميلاد";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(792, 82);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(47, 19);
+            this.label8.TabIndex = 16;
+            this.label8.Text = "العنوان";
+            // 
+            // txt_Address
+            // 
+            this.txt_Address.Location = new System.Drawing.Point(590, 79);
+            this.txt_Address.Name = "txt_Address";
+            this.txt_Address.Size = new System.Drawing.Size(196, 26);
+            this.txt_Address.TabIndex = 15;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(404, 15);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(99, 19);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "المرحلة الدراسية";
+            // 
+            // txt_Leval
+            // 
+            this.txt_Leval.Location = new System.Drawing.Point(202, 12);
+            this.txt_Leval.Name = "txt_Leval";
+            this.txt_Leval.Size = new System.Drawing.Size(196, 26);
+            this.txt_Leval.TabIndex = 13;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(404, 47);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(50, 19);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "الموبايل";
+            // 
+            // txt_Phone
+            // 
+            this.txt_Phone.Location = new System.Drawing.Point(202, 44);
+            this.txt_Phone.Name = "txt_Phone";
+            this.txt_Phone.Size = new System.Drawing.Size(196, 26);
+            this.txt_Phone.TabIndex = 11;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(404, 114);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(72, 19);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Password";
+            // 
+            // txt_Paassword
+            // 
+            this.txt_Paassword.Location = new System.Drawing.Point(202, 111);
+            this.txt_Paassword.Name = "txt_Paassword";
+            this.txt_Paassword.PasswordChar = '*';
+            this.txt_Paassword.Size = new System.Drawing.Size(196, 26);
+            this.txt_Paassword.TabIndex = 9;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(792, 114);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(85, 19);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "User Name";
+            // 
+            // txt_UserName
+            // 
+            this.txt_UserName.Location = new System.Drawing.Point(590, 111);
+            this.txt_UserName.Name = "txt_UserName";
+            this.txt_UserName.Size = new System.Drawing.Size(196, 26);
+            this.txt_UserName.TabIndex = 7;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(260, 152);
+            this.button3.Location = new System.Drawing.Point(361, 161);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(93, 44);
+            this.button3.Size = new System.Drawing.Size(93, 64);
             this.button3.TabIndex = 6;
             this.button3.Text = "بحث";
             this.button3.UseVisualStyleBackColor = true;
@@ -85,7 +202,7 @@ namespace SWE.UI.Forms
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(553, 24);
+            this.label2.Location = new System.Drawing.Point(792, 15);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(79, 19);
             this.label2.TabIndex = 5;
@@ -93,16 +210,16 @@ namespace SWE.UI.Forms
             // 
             // txt_Id
             // 
-            this.txt_Id.Location = new System.Drawing.Point(286, 21);
+            this.txt_Id.Location = new System.Drawing.Point(590, 12);
             this.txt_Id.Name = "txt_Id";
             this.txt_Id.ReadOnly = true;
-            this.txt_Id.Size = new System.Drawing.Size(261, 26);
+            this.txt_Id.Size = new System.Drawing.Size(196, 26);
             this.txt_Id.TabIndex = 4;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(553, 56);
+            this.label1.Location = new System.Drawing.Point(792, 47);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(67, 19);
             this.label1.TabIndex = 3;
@@ -110,9 +227,9 @@ namespace SWE.UI.Forms
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(389, 152);
+            this.button2.Location = new System.Drawing.Point(490, 161);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(93, 44);
+            this.button2.Size = new System.Drawing.Size(93, 64);
             this.button2.TabIndex = 2;
             this.button2.Text = "حفظ";
             this.button2.UseVisualStyleBackColor = true;
@@ -120,28 +237,28 @@ namespace SWE.UI.Forms
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(523, 152);
+            this.button1.Location = new System.Drawing.Point(624, 161);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(93, 44);
+            this.button1.Size = new System.Drawing.Size(93, 64);
             this.button1.TabIndex = 1;
             this.button1.Text = "جدبد";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // txt_Name
+            // txt_FullName
             // 
-            this.txt_Name.Location = new System.Drawing.Point(286, 53);
-            this.txt_Name.Name = "txt_Name";
-            this.txt_Name.Size = new System.Drawing.Size(261, 26);
-            this.txt_Name.TabIndex = 0;
+            this.txt_FullName.Location = new System.Drawing.Point(590, 44);
+            this.txt_FullName.Name = "txt_FullName";
+            this.txt_FullName.Size = new System.Drawing.Size(196, 26);
+            this.txt_FullName.TabIndex = 0;
             // 
             // panel2
             // 
             this.panel2.Controls.Add(this.GvResult);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 202);
+            this.panel2.Location = new System.Drawing.Point(0, 243);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(867, 317);
+            this.panel2.Size = new System.Drawing.Size(1039, 276);
             this.panel2.TabIndex = 1;
             // 
             // GvResult
@@ -152,8 +269,12 @@ namespace SWE.UI.Forms
             this.GvResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.GvResult.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
-            this.Name,
-            this.NameDepartment,
+            this.FullName,
+            this.Address,
+            this.Leval,
+            this.Phone,
+            this.UBDate,
+            this.UserName,
             this.Edit,
             this.Delete});
             this.GvResult.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -161,42 +282,9 @@ namespace SWE.UI.Forms
             this.GvResult.Name = "GvResult";
             this.GvResult.ReadOnly = true;
             this.GvResult.RowTemplate.Height = 25;
-            this.GvResult.Size = new System.Drawing.Size(867, 317);
+            this.GvResult.Size = new System.Drawing.Size(1039, 276);
             this.GvResult.TabIndex = 0;
             this.GvResult.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(553, 88);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(85, 19);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "User Name";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(286, 85);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(261, 26);
-            this.textBox1.TabIndex = 7;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(553, 120);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(72, 19);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "Password";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(286, 117);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.PasswordChar = '*';
-            this.textBox2.Size = new System.Drawing.Size(261, 26);
-            this.textBox2.TabIndex = 9;
             // 
             // Id
             // 
@@ -205,19 +293,47 @@ namespace SWE.UI.Forms
             this.Id.Name = "Id";
             this.Id.ReadOnly = true;
             // 
-            // Name
+            // FullName
             // 
-            this.Name.DataPropertyName = "Name";
-            this.Name.HeaderText = "اسم الطالب";
-            this.Name.Name = "Name";
-            this.Name.ReadOnly = true;
+            this.FullName.DataPropertyName = "FullName";
+            this.FullName.HeaderText = "اسم الطالب";
+            this.FullName.Name = "FullName";
+            this.FullName.ReadOnly = true;
             // 
-            // NameDepartment
+            // Address
             // 
-            this.NameDepartment.DataPropertyName = "NameDepartment";
-            this.NameDepartment.HeaderText = "User Name";
-            this.NameDepartment.Name = "NameDepartment";
-            this.NameDepartment.ReadOnly = true;
+            this.Address.DataPropertyName = "Address";
+            this.Address.HeaderText = "العنوان";
+            this.Address.Name = "Address";
+            this.Address.ReadOnly = true;
+            // 
+            // Leval
+            // 
+            this.Leval.DataPropertyName = "Leval";
+            this.Leval.HeaderText = "المرحلة الدراسية";
+            this.Leval.Name = "Leval";
+            this.Leval.ReadOnly = true;
+            // 
+            // Phone
+            // 
+            this.Phone.DataPropertyName = "Phone";
+            this.Phone.HeaderText = "رقم الموبايل";
+            this.Phone.Name = "Phone";
+            this.Phone.ReadOnly = true;
+            // 
+            // UBDate
+            // 
+            this.UBDate.DataPropertyName = "BDate";
+            this.UBDate.HeaderText = "تاريخ الميلاد";
+            this.UBDate.Name = "UBDate";
+            this.UBDate.ReadOnly = true;
+            // 
+            // UserName
+            // 
+            this.UserName.DataPropertyName = "UserName";
+            this.UserName.HeaderText = "اسم المستخدم";
+            this.UserName.Name = "UserName";
+            this.UserName.ReadOnly = true;
             // 
             // Edit
             // 
@@ -245,10 +361,11 @@ namespace SWE.UI.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(867, 519);
+            this.ClientSize = new System.Drawing.Size(1039, 519);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.Name = "frm_Student";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
             this.Text = "الكليات";
@@ -265,7 +382,7 @@ namespace SWE.UI.Forms
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox txt_Name;
+        private System.Windows.Forms.TextBox txt_FullName;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.DataGridView GvResult;
         private System.Windows.Forms.Label label1;
@@ -274,12 +391,24 @@ namespace SWE.UI.Forms
         private System.Windows.Forms.TextBox txt_Id;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txt_Paassword;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txt_UserName;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txt_Leval;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txt_Phone;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txt_Address;
+        private System.Windows.Forms.DateTimePicker BDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NameDepartment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FullName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Address;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Leval;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Phone;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UBDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UserName;
         private System.Windows.Forms.DataGridViewButtonColumn Edit;
         private System.Windows.Forms.DataGridViewButtonColumn Delete;
     }

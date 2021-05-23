@@ -48,9 +48,11 @@ namespace SWE.UI.Models
                 .HasOne(s => s.ProfessorManage)
                 .WithOne(b => b.DepartmentProfessor);
 
-            modelBuilder.Entity<Student>()
-                .HasOne(s => s.StudentLog)
-                .WithOne(b => b.Student);
+            modelBuilder.Entity<StudentLog>().HasKey(f => f.UserName);
+
+            //modelBuilder.Entity<Student>()
+            //    .HasOne(s => s.StudentLog)
+            //    .WithOne(b => b.Student);
 
             modelBuilder.Entity<Professor>()
                 .HasOne(s => s.ProfessorManage)
@@ -60,8 +62,6 @@ namespace SWE.UI.Models
                 .HasMany(s => s.Professores)
                 .WithOne(d => d.Department).HasForeignKey(D => D.DepartmentsId);
 
-
-            modelBuilder.Entity<StudentLog>().HasKey(f => f.UserName);
 
             modelBuilder.Entity<Course>().Property(f => f.IsDelete).HasDefaultValue(false);
             modelBuilder.Entity<Department>().Property(f => f.IsDelete).HasDefaultValue(false);

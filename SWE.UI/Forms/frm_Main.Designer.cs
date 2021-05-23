@@ -45,6 +45,7 @@ namespace SWE.UI.Forms
             // 
             // button1
             // 
+            this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button1.BackColor = System.Drawing.Color.SandyBrown;
             this.button1.FlatAppearance.BorderColor = System.Drawing.Color.Red;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -60,6 +61,7 @@ namespace SWE.UI.Forms
             // 
             // button2
             // 
+            this.button2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button2.BackColor = System.Drawing.Color.SandyBrown;
             this.button2.FlatAppearance.BorderColor = System.Drawing.Color.Red;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -75,6 +77,7 @@ namespace SWE.UI.Forms
             // 
             // button3
             // 
+            this.button3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button3.BackColor = System.Drawing.Color.SandyBrown;
             this.button3.FlatAppearance.BorderColor = System.Drawing.Color.Red;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -90,6 +93,7 @@ namespace SWE.UI.Forms
             // 
             // button4
             // 
+            this.button4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button4.BackColor = System.Drawing.Color.SandyBrown;
             this.button4.FlatAppearance.BorderColor = System.Drawing.Color.Red;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -99,11 +103,13 @@ namespace SWE.UI.Forms
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(233, 132);
             this.button4.TabIndex = 3;
-            this.button4.Text = "button4";
+            this.button4.Text = "الطلاب";
             this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
+            this.button5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button5.BackColor = System.Drawing.Color.SandyBrown;
             this.button5.FlatAppearance.BorderColor = System.Drawing.Color.Red;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -118,6 +124,7 @@ namespace SWE.UI.Forms
             // 
             // button6
             // 
+            this.button6.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button6.BackColor = System.Drawing.Color.SandyBrown;
             this.button6.FlatAppearance.BorderColor = System.Drawing.Color.Red;
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -132,6 +139,7 @@ namespace SWE.UI.Forms
             // 
             // button7
             // 
+            this.button7.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button7.BackColor = System.Drawing.Color.SandyBrown;
             this.button7.FlatAppearance.BorderColor = System.Drawing.Color.Red;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -146,6 +154,7 @@ namespace SWE.UI.Forms
             // 
             // button8
             // 
+            this.button8.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button8.BackColor = System.Drawing.Color.SandyBrown;
             this.button8.FlatAppearance.BorderColor = System.Drawing.Color.Red;
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -160,6 +169,7 @@ namespace SWE.UI.Forms
             // 
             // button9
             // 
+            this.button9.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button9.BackColor = System.Drawing.Color.SandyBrown;
             this.button9.FlatAppearance.BorderColor = System.Drawing.Color.Red;
             this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -174,6 +184,7 @@ namespace SWE.UI.Forms
             // 
             // button10
             // 
+            this.button10.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button10.BackColor = System.Drawing.Color.SandyBrown;
             this.button10.FlatAppearance.BorderColor = System.Drawing.Color.Red;
             this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -188,6 +199,7 @@ namespace SWE.UI.Forms
             // 
             // button11
             // 
+            this.button11.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button11.BackColor = System.Drawing.Color.SandyBrown;
             this.button11.FlatAppearance.BorderColor = System.Drawing.Color.Red;
             this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -202,6 +214,7 @@ namespace SWE.UI.Forms
             // 
             // button12
             // 
+            this.button12.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button12.BackColor = System.Drawing.Color.SandyBrown;
             this.button12.FlatAppearance.BorderColor = System.Drawing.Color.Red;
             this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;

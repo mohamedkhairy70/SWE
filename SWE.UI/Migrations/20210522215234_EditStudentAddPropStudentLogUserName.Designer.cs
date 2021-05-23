@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SWE.UI.Models;
 
 namespace SWE.UI.Migrations
 {
     [DbContext(typeof(SWEContext))]
-    partial class SWEContextModelSnapshot : ModelSnapshot
+    [Migration("20210522215234_EditStudentAddPropStudentLogUserName")]
+    partial class EditStudentAddPropStudentLogUserName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -234,7 +236,9 @@ namespace SWE.UI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StudentLogUserName");
+                    b.HasIndex("StudentLogUserName")
+                        .IsUnique()
+                        .HasFilter("[StudentLogUserName] IS NOT NULL");
 
                     b.ToTable("Studentes");
                 });
@@ -252,6 +256,9 @@ namespace SWE.UI.Migrations
 
                     b.Property<byte[]>("PasswordSalt")
                         .HasColumnType("varbinary(max)");
+
+                    b.Property<int?>("StudentId")
+                        .HasColumnType("int");
 
                     b.HasKey("UserName");
 
@@ -340,8 +347,8 @@ namespace SWE.UI.Migrations
             modelBuilder.Entity("SWE.UI.Models.Domain.Student", b =>
                 {
                     b.HasOne("SWE.UI.Models.Domain.StudentLog", "StudentLog")
-                        .WithMany()
-                        .HasForeignKey("StudentLogUserName");
+                        .WithOne("Student")
+                        .HasForeignKey("SWE.UI.Models.Domain.Student", "StudentLogUserName");
 
                     b.Navigation("StudentLog");
                 });
@@ -377,6 +384,11 @@ namespace SWE.UI.Migrations
             modelBuilder.Entity("SWE.UI.Models.Domain.Professor", b =>
                 {
                     b.Navigation("DepartmentProfessor");
+                });
+
+            modelBuilder.Entity("SWE.UI.Models.Domain.StudentLog", b =>
+                {
+                    b.Navigation("Student");
                 });
 #pragma warning restore 612, 618
         }

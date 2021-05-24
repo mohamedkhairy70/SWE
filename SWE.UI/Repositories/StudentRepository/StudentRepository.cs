@@ -17,7 +17,7 @@ namespace SWE.UI.Repositories.StudentRepository
 
         public async Task<IEnumerable<Student>> AllNotDeleted()
         {
-            return await _context.Studentes.Where(f => !f.IsDelete).ToListAsync();
+            return await _context.Studentes.Include(x => x.StudentLog).Where(f => !f.IsDelete).ToListAsync();
         }
 
         public async Task<IEnumerable<Student>> GetByName(string _Name)

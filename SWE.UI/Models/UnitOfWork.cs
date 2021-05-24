@@ -1,4 +1,5 @@
 ﻿using SWE.UI.interfaces;
+using SWE.UI.Repositories.CourseRepository;
 using SWE.UI.Repositories.DepartmentRepository;
 using SWE.UI.Repositories.FacultieRepository;
 using SWE.UI.Repositories.ProfessorRepository;
@@ -19,6 +20,7 @@ namespace SWE.UI.Models
             Professor = new ProfessorRepository(context);
             Student = new StudentRepository(context);
             StudentLog = new StudentLogRepository(context);
+            Course = new CourseRepository(context);
         }
 
         public IFacultieRepository Facultie { get; private set; }
@@ -26,7 +28,7 @@ namespace SWE.UI.Models
         public IProfessorRepository Professor { get; private set; }
         public IStudentRepository Student { get; private set; }
         public IStudentLogRepository StudentLog { get; private set; }
-
+        public ICourseRepository Course { get; private set; }
         public async Task<int> Commet() => await context.SaveChangesAsync();
 
         public void Dispose() => context.Dispose();

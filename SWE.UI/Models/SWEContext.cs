@@ -21,7 +21,7 @@ namespace SWE.UI.Models
         //public DbSet<DepartmentProfessor> DepartmentProfessores { get; set; }
         public SWEContext(DbContextOptions<SWEContext> options) : base(options) 
         {
-            
+            this.Database.EnsureCreated();
         }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -75,11 +75,10 @@ namespace SWE.UI.Models
     }
     public class SWEContextFactory : IDesignTimeDbContextFactory<SWEContext>
     {
-       
         public SWEContext CreateDbContext(string[]? args = null)
         {
             var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-
+            
             var optionsBuilder = new DbContextOptionsBuilder<SWEContext>();
             optionsBuilder
                 // Uncomment the following line if you want to print generated

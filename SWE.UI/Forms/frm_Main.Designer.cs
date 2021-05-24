@@ -164,8 +164,9 @@ namespace SWE.UI.Forms
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(233, 132);
             this.button8.TabIndex = 4;
-            this.button8.Text = "button8";
+            this.button8.Text = "المواد";
             this.button8.UseVisualStyleBackColor = false;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button9
             // 

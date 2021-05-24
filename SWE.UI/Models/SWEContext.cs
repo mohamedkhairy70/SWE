@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using SWE.UI.Models.Domain;
 using SWE.UI.Models.Mapping;
 using System.Reflection;
@@ -18,12 +19,15 @@ namespace SWE.UI.Models
         public DbSet<Evaluation> Evaluation { get; set; }
         public DbSet<StudentLog> StudentLog { get; set; }
         //public DbSet<DepartmentProfessor> DepartmentProfessores { get; set; }
-        public SWEContext(DbContextOptions<SWEContext> options) : base(options) { }
-
+        public SWEContext(DbContextOptions<SWEContext> options) : base(options) 
+        {
+            
+        }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
+            
             modelBuilder.Entity<Course>()
                .HasMany(s => s.Students)
                .WithMany(b => b.Courses)
@@ -71,6 +75,7 @@ namespace SWE.UI.Models
     }
     public class SWEContextFactory : IDesignTimeDbContextFactory<SWEContext>
     {
+       
         public SWEContext CreateDbContext(string[]? args = null)
         {
             var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
@@ -79,9 +84,9 @@ namespace SWE.UI.Models
             optionsBuilder
                 // Uncomment the following line if you want to print generated
                 // SQL statements on the console.
-                // .UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()))
+                .UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()))
                 .UseSqlServer(configuration["ConnectionStrings:DefaultConnection"]);
-
+            
             return new SWEContext(optionsBuilder.Options);
         }
     }

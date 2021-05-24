@@ -12,7 +12,7 @@ namespace SWE.UI.ImplementForms
         {
             try
             {
-                using (var work = new UnitOfWork(new SWEContext()))
+                using (var work = new UnitOfWork(new SWEContextFactory().CreateDbContext()))
                 {
                     var department = await work.Department.GetId(_IdDepartment);
                     var professor = (_IdManager == null) ? null : await work.Professor.GetId(_IdManager);
@@ -38,7 +38,7 @@ namespace SWE.UI.ImplementForms
         {
             try
             {
-                using (var work = new UnitOfWork(new SWEContext()))
+                using (var work = new UnitOfWork(new SWEContextFactory().CreateDbContext()))
                 {
                     work.Professor.Update(new Professor
                     {
@@ -60,7 +60,7 @@ namespace SWE.UI.ImplementForms
         {
             try
             {
-                using (var work = new UnitOfWork(new SWEContext()))
+                using (var work = new UnitOfWork(new SWEContextFactory().CreateDbContext()))
                 {
                     var department = await work.Department.GetId(_IdDepartment);
                     var professor = (_IdManager == null) ? null : await work.Professor.GetId(_IdManager);

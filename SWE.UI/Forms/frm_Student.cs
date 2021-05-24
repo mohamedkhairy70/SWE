@@ -30,7 +30,7 @@ namespace SWE.UI.Forms
         }
         async void get()
         {
-            using (var work = new UnitOfWork(new SWEContext()))
+            using (var work = new UnitOfWork(new SWEContextFactory().CreateDbContext()))
             {
                 var getListStudent = await work.Student.AllNotDeleted();
 
@@ -53,7 +53,9 @@ namespace SWE.UI.Forms
         }
         async Task<bool> checkUserNameIsExists(string userName)
         {
-            using (var work = new UnitOfWork(new SWEContext()))
+            var factory = new SWEContextFactory();
+            using var context = factory.CreateDbContext();
+            using (var work = new UnitOfWork(context))
             {
                 return await work.StudentLog.UserExsists(userName);
             }
@@ -61,7 +63,7 @@ namespace SWE.UI.Forms
         }
         async void getByName(string _Name)
         {
-            using (var work = new UnitOfWork(new SWEContext()))
+            using (var work = new UnitOfWork(new SWEContextFactory().CreateDbContext()))
             {
 
                 var getListStudent = await work.Student.GetByName(_Name);

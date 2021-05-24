@@ -12,7 +12,7 @@ namespace SWE.UI.ImplementForms
         {
             try
             {
-                using (var work = new UnitOfWork(new SWEContext()))
+                using (var work = new UnitOfWork(new SWEContextFactory().CreateDbContext()))
                 {
                     work.Facultie.Update(new Facultie { Id = _Id, Name = _Name, IsDelete = _IsDelete });
 
@@ -31,7 +31,7 @@ namespace SWE.UI.ImplementForms
         {
             try
             {
-                using (var work = new UnitOfWork(new SWEContext()))
+                using (var work = new UnitOfWork(new SWEContextFactory().CreateDbContext()))
                 {
                     await work.Facultie.Add(new Facultie { Name = _Name });
 

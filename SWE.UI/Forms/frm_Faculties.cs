@@ -20,7 +20,7 @@ namespace SWE.UI.Forms
         
         async void get()
         {
-            using (var work = new UnitOfWork(new SWEContext()))
+            using (var work = new UnitOfWork(new SWEContextFactory().CreateDbContext()))
             {
                 var GetAwaitFacultie = await work.Facultie.AllNotDeleted();
                 var FacultieResult = GetAwaitFacultie.Select(f => new { f.Id, f.Name }).ToList();
@@ -31,7 +31,7 @@ namespace SWE.UI.Forms
         }
         async void getByName(string _Name)
         {
-            using (var work = new UnitOfWork(new SWEContext()))
+            using (var work = new UnitOfWork(new SWEContextFactory().CreateDbContext()))
             {
                 var GetAwaitFacultie = await work.Facultie.GetByName(_Name);
                 var FacultieResult = GetAwaitFacultie.Select(f => new { f.Id, f.Name }).ToList();

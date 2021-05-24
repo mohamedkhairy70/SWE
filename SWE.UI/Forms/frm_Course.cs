@@ -20,22 +20,22 @@ namespace SWE.UI.Forms
         
         async void get()
         {
-            using (var work = new UnitOfWork(new SWEContext()))
+            using (var work = new UnitOfWork(new SWEContextFactory().CreateDbContext()))
             {
-                var GetAwaitFacultie = await work.Facultie.AllNotDeleted();
-                var FacultieResult = GetAwaitFacultie.Select(f => new { f.Id, f.Name }).ToList();
-                GvResult.DataSource = FacultieResult;
+                var GetAwaitCourse = await work.Course.AllNotDeleted();
+                var CourseResult = GetAwaitCourse.Select(f => new { f.Id, f.Name }).ToList();
+                GvResult.DataSource = CourseResult;
             }
             txt_Id.Clear();
             txt_Name.Clear();
         }
         async void getByName(string _Name)
         {
-            using (var work = new UnitOfWork(new SWEContext()))
+            using (var work = new UnitOfWork(new SWEContextFactory().CreateDbContext()))
             {
-                var GetAwaitFacultie = await work.Facultie.GetByName(_Name);
-                var FacultieResult = GetAwaitFacultie.Select(f => new { f.Id, f.Name }).ToList();
-                GvResult.DataSource = FacultieResult;
+                var GetAwaitCourse = await work.Course.GetByName(_Name);
+                var CourseResult = GetAwaitCourse.Select(f => new { f.Id, f.Name }).ToList();
+                GvResult.DataSource = CourseResult;
             }
 
         }
@@ -56,15 +56,15 @@ namespace SWE.UI.Forms
             }
             if (GvResult.Columns[e.ColumnIndex].Name == "Delete")
             {
-                var NameFaculties = GvResult.Rows[e.RowIndex].Cells["Name"].Value.ToString();
-                var IdFaculties = GvResult.Rows[e.RowIndex].Cells["Id"].Value.ToString();
-                var msg = MessageBox.Show($"هل انت متأكد بأنك تريد حذف ... {NameFaculties}", "رسالة حذف"
+                var NameCourses = GvResult.Rows[e.RowIndex].Cells["Name"].Value.ToString();
+                var IdCourses = GvResult.Rows[e.RowIndex].Cells["Id"].Value.ToString();
+                var msg = MessageBox.Show($"هل انت متأكد بأنك تريد حذف ... {NameCourses}", "رسالة حذف"
                     , MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (msg == DialogResult.Yes)
                 {
                     //For Update Entities (Id,Name,IsDeleted = true) for visable from my project Not my database
-                    await implementCourse.Updated(Convert.ToInt32(IdFaculties), NameFaculties, true);
+                    await implementCourse.Updated(Convert.ToInt32(IdCourses), NameCourses, true);
                     //For Get All Data and Clear Data
                     get();
                 }

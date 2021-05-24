@@ -17,7 +17,7 @@ namespace SWE.UI.Forms
         }
         async void get()
         {
-            using (var work = new UnitOfWork(new SWEContext()))
+            using (var work = new UnitOfWork(new SWEContextFactory().CreateDbContext()))
             {
                 var getawaitListFacultie = await work.Facultie.AllNotDeleted();
                 var getawaitListProfessor = await work.Professor.AllNotDeleted();
@@ -58,7 +58,7 @@ namespace SWE.UI.Forms
         }
         async void getByName(string _Name)
         {
-            using (var work = new UnitOfWork(new SWEContext()))
+            using (var work = new UnitOfWork(new SWEContextFactory().CreateDbContext()))
             {
 
                 var getawaitListDepartment = await work.Department.AllNotDeleted();

@@ -13,7 +13,7 @@ namespace SWE.UI.ImplementForms
         {
             try
             {
-                using (var work = new UnitOfWork(new SWEContext()))
+                using (var work = new UnitOfWork(new SWEContextFactory().CreateDbContext()))
                 {
                     var _studentLogResult = await work.StudentLog.Edit(_studentLog, password);
 
@@ -32,7 +32,7 @@ namespace SWE.UI.ImplementForms
         {
             try
             {
-                using (var work = new UnitOfWork(new SWEContext()))
+                using (var work = new UnitOfWork(new SWEContextFactory().CreateDbContext()))
                 {
                     work.Student.Update(new Student
                     {
@@ -54,7 +54,7 @@ namespace SWE.UI.ImplementForms
         {
             try
             {
-                using (var work = new UnitOfWork(new SWEContext()))
+                using (var work = new UnitOfWork(new SWEContextFactory().CreateDbContext()))
                 {
                    var _studentLogResult = await work.StudentLog.Register(_studentLog, password);
 

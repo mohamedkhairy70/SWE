@@ -73,7 +73,7 @@ namespace SWE.UI.Forms
                 if (msg == DialogResult.Yes)
                 {
                     //For Update Entities (Id,Name,IsDeleted = true) for visable from my project Not my database
-                    await implementCourse.Updated(Convert.ToInt32(IdCourses), NameCourses, true);
+                    await implementCourse.Updated(Convert.ToInt32(IdCourses), NameCourses,1, true);
                     //For Get All Data and Clear Data
                     get();
                 }
@@ -82,17 +82,17 @@ namespace SWE.UI.Forms
 
         private async void button2_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrWhiteSpace(txt_Id.Text))
+            if(string.IsNullOrWhiteSpace(txt_Id.Text) && cm_Department.SelectedIndex > -1)
             {
                 //For Add Entities (Id auto No Bas,Name)
-                await implementCourse.Add(txt_Name.Text);
+                await implementCourse.Add(txt_Name.Text,Convert.ToInt32(cm_Department.SelectedValue));
                 //For Get All Data and Clear Data
                 get();
             }
             else
             {
                 //For Update Entities (Id,Name,IsDeleted)
-                await implementCourse.Updated(Convert.ToInt32(txt_Id.Text), txt_Name.Text,false);
+                await implementCourse.Updated(Convert.ToInt32(txt_Id.Text), txt_Name.Text, Convert.ToInt32(cm_Department.SelectedValue), false);
                 //For Get All Data and Clear Data
                 get();
             }

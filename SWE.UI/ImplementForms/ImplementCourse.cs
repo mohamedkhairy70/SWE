@@ -8,13 +8,14 @@ namespace SWE.UI.ImplementForms
     {
         private int resultCommet = 0;
 
-        public async Task<bool> Updated(int _Id, string _Name, bool _IsDelete)
+        public async Task<bool> Updated(int _Id, string _Name, int _IdDepartment, bool _IsDelete)
         {
             try
             {
                 using (var work = new UnitOfWork(new SWEContextFactory().CreateDbContext()))
                 {
-                    work.Course.Update(new Course { Id = _Id, Name = _Name, IsDelete = _IsDelete });
+                    var department = await work.Department.GetId(_IdDepartment);
+                    work.Course.Update(new Course { Id = _Id, Name = _Name,Department = department, IsDelete = _IsDelete });
 
                     resultCommet = await work.Commet();
                 }
@@ -27,13 +28,14 @@ namespace SWE.UI.ImplementForms
             catch { return false; }
 
         }
-        public async Task<bool> Add(string _Name)
+        public async Task<bool> Add(string _Name, int _IdDepartment)
         {
             try
             {
                 using (var work = new UnitOfWork(new SWEContextFactory().CreateDbContext()))
                 {
-                    await work.Course.Add(new Course { Name = _Name });
+                    var department = await work.Department.GetId(_IdDepartment);
+                    await work.Course.Add(new Course { Name = _Name,Department = department });
 
                     await work.Commet();
                 }

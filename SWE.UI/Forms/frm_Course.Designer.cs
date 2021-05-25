@@ -39,8 +39,11 @@ namespace SWE.UI.Forms
             this.txt_Name = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.GvResult = new System.Windows.Forms.DataGridView();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cm_Department = new System.Windows.Forms.ComboBox();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NameDepartment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Edit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Delete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel1.SuspendLayout();
@@ -50,6 +53,8 @@ namespace SWE.UI.Forms
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.cm_Department);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.txt_Id);
@@ -60,12 +65,12 @@ namespace SWE.UI.Forms
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(775, 142);
+            this.panel1.Size = new System.Drawing.Size(823, 183);
             this.panel1.TabIndex = 0;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(177, 85);
+            this.button3.Location = new System.Drawing.Point(188, 120);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(93, 44);
             this.button3.TabIndex = 6;
@@ -101,7 +106,7 @@ namespace SWE.UI.Forms
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(306, 85);
+            this.button2.Location = new System.Drawing.Point(317, 120);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(93, 44);
             this.button2.TabIndex = 2;
@@ -111,7 +116,7 @@ namespace SWE.UI.Forms
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(440, 85);
+            this.button1.Location = new System.Drawing.Point(451, 120);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(93, 44);
             this.button1.TabIndex = 1;
@@ -130,9 +135,9 @@ namespace SWE.UI.Forms
             // 
             this.panel2.Controls.Add(this.GvResult);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 142);
+            this.panel2.Location = new System.Drawing.Point(0, 183);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(775, 253);
+            this.panel2.Size = new System.Drawing.Size(823, 323);
             this.panel2.TabIndex = 1;
             // 
             // GvResult
@@ -144,6 +149,7 @@ namespace SWE.UI.Forms
             this.GvResult.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
             this.Name,
+            this.NameDepartment,
             this.Edit,
             this.Delete});
             this.GvResult.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -151,9 +157,26 @@ namespace SWE.UI.Forms
             this.GvResult.Name = "GvResult";
             this.GvResult.ReadOnly = true;
             this.GvResult.RowTemplate.Height = 25;
-            this.GvResult.Size = new System.Drawing.Size(775, 253);
+            this.GvResult.Size = new System.Drawing.Size(823, 323);
             this.GvResult.TabIndex = 0;
             this.GvResult.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(486, 78);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(38, 19);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "القسم";
+            // 
+            // cm_Department
+            // 
+            this.cm_Department.FormattingEnabled = true;
+            this.cm_Department.Location = new System.Drawing.Point(219, 75);
+            this.cm_Department.Name = "cm_Department";
+            this.cm_Department.Size = new System.Drawing.Size(261, 27);
+            this.cm_Department.TabIndex = 13;
             // 
             // Id
             // 
@@ -168,6 +191,13 @@ namespace SWE.UI.Forms
             this.Name.HeaderText = "اسم المادة";
             this.Name.Name = "Name";
             this.Name.ReadOnly = true;
+            // 
+            // NameDepartment
+            // 
+            this.NameDepartment.DataPropertyName = "NameDepartment";
+            this.NameDepartment.HeaderText = "القسم";
+            this.NameDepartment.Name = "NameDepartment";
+            this.NameDepartment.ReadOnly = true;
             // 
             // Edit
             // 
@@ -195,10 +225,11 @@ namespace SWE.UI.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(775, 395);
+            this.ClientSize = new System.Drawing.Size(823, 506);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.Name = "frm_Course";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.RightToLeftLayout = true;
             this.Text = "المواد";
@@ -223,8 +254,11 @@ namespace SWE.UI.Forms
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txt_Id;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox cm_Department;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NameDepartment;
         private System.Windows.Forms.DataGridViewButtonColumn Edit;
         private System.Windows.Forms.DataGridViewButtonColumn Delete;
     }

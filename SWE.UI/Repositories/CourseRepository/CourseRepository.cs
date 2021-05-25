@@ -15,11 +15,11 @@ namespace SWE.UI.Repositories.CourseRepository
             _context = context;
         }
 
-        public async Task<IEnumerable<Course>> AllNotDeleted() => await _context.Courses.Where(f => !f.IsDelete).ToListAsync();
+        public async Task<IEnumerable<Course>> AllNotDeleted() => await _context.Courses.Include(x=>x.Department).Where(f => !f.IsDelete).ToListAsync();
 
         public async Task<IEnumerable<Course>> GetByName(string _Name)
         {
-            return await _context.Courses.Where(f => EF.Functions.Contains(f.Name, _Name) && !f.IsDelete).ToListAsync();
+            return await _context.Courses.Include(x => x.Department).Where(f => EF.Functions.Contains(f.Name, _Name) && !f.IsDelete).ToListAsync();
         }
     }
 }

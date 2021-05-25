@@ -22,9 +22,18 @@ namespace SWE.UI.Forms
         {
             using (var work = new UnitOfWork(new SWEContextFactory().CreateDbContext()))
             {
+                var getAwaitListDepartment = await work.Department.AllNotDeleted();
                 var GetAwaitCourse = await work.Course.AllNotDeleted();
-                var CourseResult = GetAwaitCourse.Select(f => new { f.Id, f.Name }).ToList();
+                var CourseResult = GetAwaitCourse.Select(f => new { f.Id, f.Name, NameDepartment = f.Department.Name }).ToList();
+                var DepartmentResult = getAwaitListDepartment.Select(d => new { d.Id, d.Name }).ToList();
                 GvResult.DataSource = CourseResult;
+                if (DepartmentResult.Count > 0)
+                {
+                    cm_Department.DataSource = DepartmentResult;
+                    cm_Department.DisplayMember = "Name";
+                    cm_Department.ValueMember = "Id";
+                    cm_Department.SelectedIndex = -1;
+                }
             }
             txt_Id.Clear();
             txt_Name.Clear();
